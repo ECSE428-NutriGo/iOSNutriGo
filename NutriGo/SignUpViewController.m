@@ -1,23 +1,22 @@
 //
-//  ViewController.m
+//  SignUpViewController.m
 //  NutriGo
 //
-//  Created by Sam Cattani on 2020-02-03.
+//  Created by Sam Cattani on 2020-02-12.
 //  Copyright © 2020 oweek.communications.mcgilleus.ca. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SignUpViewController.h"
 
-@interface ViewController ()
+@interface SignUpViewController ()
 
 @end
 
-@implementation ViewController
+@implementation SignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 
 @end

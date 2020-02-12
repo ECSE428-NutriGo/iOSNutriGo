@@ -3,32 +3,60 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BD823E8B14E00B5C927 /* AppDelegate.m */; };
-		CD235BDC23E8B14E00B5C927 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BDB23E8B14E00B5C927 /* SceneDelegate.m */; };
-		CD235BDF23E8B14E00B5C927 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BDE23E8B14E00B5C927 /* ViewController.m */; };
-		CD235BE223E8B14E00B5C927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE023E8B14E00B5C927 /* Main.storyboard */; };
 		CD235BE423E8B15100B5C927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE323E8B15100B5C927 /* Assets.xcassets */; };
 		CD235BE723E8B15100B5C927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */; };
 		CD235BEA23E8B15100B5C927 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BE923E8B15100B5C927 /* main.m */; };
+		CD235BF223E8B41600B5C927 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BF123E8B41600B5C927 /* HomeViewController.m */; };
+		CD5B7DFA23F4142A00EE53F8 /* SourceCodePro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD5B7DF923F4142A00EE53F8 /* SourceCodePro-Black.ttf */; };
+		CD5B7DFD23F4148C00EE53F8 /* LoginSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7DFC23F4148C00EE53F8 /* LoginSignUpViewController.m */; };
+		CD5B7E0023F41A2100EE53F8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7DFF23F41A2100EE53F8 /* LoginViewController.m */; };
+		CD5B7E0323F41A3200EE53F8 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E0223F41A3200EE53F8 /* SignUpViewController.m */; };
+		CD5B7E0623F41C5900EE53F8 /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E0523F41C5900EE53F8 /* MealViewController.m */; };
+		CD5B7E0923F4248600EE53F8 /* NewMealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E0823F4248600EE53F8 /* NewMealViewController.m */; };
+		CD5B7E0C23F4279400EE53F8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E0B23F4279400EE53F8 /* ProfileViewController.m */; };
+		CD5B7E0F23F42E0700EE53F8 /* ManualEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E0E23F42E0700EE53F8 /* ManualEntryViewController.m */; };
+		CD5B7E1223F432D700EE53F8 /* AddFoodItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E1123F432D600EE53F8 /* AddFoodItemViewController.m */; };
+		CD5B7E1523F4347400EE53F8 /* NewFoodItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B7E1423F4347400EE53F8 /* NewFoodItemViewController.m */; };
+		EBD60581E1D5CFA69B7EFADD /* Pods_NutriGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0EFAAE9686AE3778793DA8 /* Pods_NutriGo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76001FD06DFEF008FED558ED /* Pods-NutriGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.release.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.release.xcconfig"; sourceTree = "<group>"; };
+		8B0EFAAE9686AE3778793DA8 /* Pods_NutriGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NutriGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8F4840032C509B6E65B790D /* Pods-NutriGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.debug.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.debug.xcconfig"; sourceTree = "<group>"; };
 		CD235BD423E8B14E00B5C927 /* NutriGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutriGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD235BD723E8B14E00B5C927 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD235BD823E8B14E00B5C927 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CD235BDA23E8B14E00B5C927 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		CD235BDB23E8B14E00B5C927 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		CD235BDD23E8B14E00B5C927 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CD235BDE23E8B14E00B5C927 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		CD235BE123E8B14E00B5C927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD235BE323E8B15100B5C927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD235BE623E8B15100B5C927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD235BE823E8B15100B5C927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD235BE923E8B15100B5C927 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CD235BF023E8B41600B5C927 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		CD235BF123E8B41600B5C927 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		CD5B7DF923F4142A00EE53F8 /* SourceCodePro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Black.ttf"; sourceTree = "<group>"; };
+		CD5B7DFB23F4148C00EE53F8 /* LoginSignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginSignUpViewController.h; sourceTree = "<group>"; };
+		CD5B7DFC23F4148C00EE53F8 /* LoginSignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginSignUpViewController.m; sourceTree = "<group>"; };
+		CD5B7DFE23F41A2100EE53F8 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		CD5B7DFF23F41A2100EE53F8 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		CD5B7E0123F41A3200EE53F8 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		CD5B7E0223F41A3200EE53F8 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		CD5B7E0423F41C5900EE53F8 /* MealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
+		CD5B7E0523F41C5900EE53F8 /* MealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
+		CD5B7E0723F4248600EE53F8 /* NewMealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMealViewController.h; sourceTree = "<group>"; };
+		CD5B7E0823F4248600EE53F8 /* NewMealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewMealViewController.m; sourceTree = "<group>"; };
+		CD5B7E0A23F4279400EE53F8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		CD5B7E0B23F4279400EE53F8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		CD5B7E0D23F42E0700EE53F8 /* ManualEntryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManualEntryViewController.h; sourceTree = "<group>"; };
+		CD5B7E0E23F42E0700EE53F8 /* ManualEntryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManualEntryViewController.m; sourceTree = "<group>"; };
+		CD5B7E1023F432D600EE53F8 /* AddFoodItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddFoodItemViewController.h; sourceTree = "<group>"; };
+		CD5B7E1123F432D600EE53F8 /* AddFoodItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddFoodItemViewController.m; sourceTree = "<group>"; };
+		CD5B7E1323F4347400EE53F8 /* NewFoodItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewFoodItemViewController.h; sourceTree = "<group>"; };
+		CD5B7E1423F4347400EE53F8 /* NewFoodItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewFoodItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +64,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBD60581E1D5CFA69B7EFADD /* Pods_NutriGo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BA87203A4F26ED0EC6A9D33 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C8F4840032C509B6E65B790D /* Pods-NutriGo.debug.xcconfig */,
+				76001FD06DFEF008FED558ED /* Pods-NutriGo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		83D2797E375F44766CC295BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B0EFAAE9686AE3778793DA8 /* Pods_NutriGo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CD235BCB23E8B14E00B5C927 = {
 			isa = PBXGroup;
 			children = (
 				CD235BD623E8B14E00B5C927 /* NutriGo */,
 				CD235BD523E8B14E00B5C927 /* Products */,
+				4BA87203A4F26ED0EC6A9D33 /* Pods */,
+				83D2797E375F44766CC295BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,19 +109,43 @@
 		CD235BD623E8B14E00B5C927 /* NutriGo */ = {
 			isa = PBXGroup;
 			children = (
+				CD5B7DF823F4140700EE53F8 /* font */,
 				CD235BD723E8B14E00B5C927 /* AppDelegate.h */,
 				CD235BD823E8B14E00B5C927 /* AppDelegate.m */,
-				CD235BDA23E8B14E00B5C927 /* SceneDelegate.h */,
-				CD235BDB23E8B14E00B5C927 /* SceneDelegate.m */,
-				CD235BDD23E8B14E00B5C927 /* ViewController.h */,
-				CD235BDE23E8B14E00B5C927 /* ViewController.m */,
-				CD235BE023E8B14E00B5C927 /* Main.storyboard */,
 				CD235BE323E8B15100B5C927 /* Assets.xcassets */,
 				CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */,
 				CD235BE823E8B15100B5C927 /* Info.plist */,
 				CD235BE923E8B15100B5C927 /* main.m */,
+				CD235BF023E8B41600B5C927 /* HomeViewController.h */,
+				CD235BF123E8B41600B5C927 /* HomeViewController.m */,
+				CD5B7DFB23F4148C00EE53F8 /* LoginSignUpViewController.h */,
+				CD5B7DFC23F4148C00EE53F8 /* LoginSignUpViewController.m */,
+				CD5B7DFE23F41A2100EE53F8 /* LoginViewController.h */,
+				CD5B7DFF23F41A2100EE53F8 /* LoginViewController.m */,
+				CD5B7E0123F41A3200EE53F8 /* SignUpViewController.h */,
+				CD5B7E0223F41A3200EE53F8 /* SignUpViewController.m */,
+				CD5B7E0423F41C5900EE53F8 /* MealViewController.h */,
+				CD5B7E0523F41C5900EE53F8 /* MealViewController.m */,
+				CD5B7E0723F4248600EE53F8 /* NewMealViewController.h */,
+				CD5B7E0823F4248600EE53F8 /* NewMealViewController.m */,
+				CD5B7E0A23F4279400EE53F8 /* ProfileViewController.h */,
+				CD5B7E0B23F4279400EE53F8 /* ProfileViewController.m */,
+				CD5B7E0D23F42E0700EE53F8 /* ManualEntryViewController.h */,
+				CD5B7E0E23F42E0700EE53F8 /* ManualEntryViewController.m */,
+				CD5B7E1023F432D600EE53F8 /* AddFoodItemViewController.h */,
+				CD5B7E1123F432D600EE53F8 /* AddFoodItemViewController.m */,
+				CD5B7E1323F4347400EE53F8 /* NewFoodItemViewController.h */,
+				CD5B7E1423F4347400EE53F8 /* NewFoodItemViewController.m */,
 			);
 			path = NutriGo;
+			sourceTree = "<group>";
+		};
+		CD5B7DF823F4140700EE53F8 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				CD5B7DF923F4142A00EE53F8 /* SourceCodePro-Black.ttf */,
+			);
+			path = font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD235BED23E8B15100B5C927 /* Build configuration list for PBXNativeTarget "NutriGo" */;
 			buildPhases = (
+				9B16E12B54DB6CAF495B64F2 /* [CP] Check Pods Manifest.lock */,
 				CD235BD023E8B14E00B5C927 /* Sources */,
 				CD235BD123E8B14E00B5C927 /* Frameworks */,
 				CD235BD223E8B14E00B5C927 /* Resources */,
+				D68220D08D6C73D7CD8629CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,35 +209,77 @@
 			files = (
 				CD235BE723E8B15100B5C927 /* LaunchScreen.storyboard in Resources */,
 				CD235BE423E8B15100B5C927 /* Assets.xcassets in Resources */,
-				CD235BE223E8B14E00B5C927 /* Main.storyboard in Resources */,
+				CD5B7DFA23F4142A00EE53F8 /* SourceCodePro-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B16E12B54DB6CAF495B64F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NutriGo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D68220D08D6C73D7CD8629CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NutriGo/Pods-NutriGo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NutriGo/Pods-NutriGo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NutriGo/Pods-NutriGo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CD235BD023E8B14E00B5C927 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD235BDF23E8B14E00B5C927 /* ViewController.m in Sources */,
+				CD5B7E0623F41C5900EE53F8 /* MealViewController.m in Sources */,
+				CD5B7E0C23F4279400EE53F8 /* ProfileViewController.m in Sources */,
+				CD5B7DFD23F4148C00EE53F8 /* LoginSignUpViewController.m in Sources */,
+				CD5B7E0F23F42E0700EE53F8 /* ManualEntryViewController.m in Sources */,
+				CD5B7E0923F4248600EE53F8 /* NewMealViewController.m in Sources */,
 				CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */,
+				CD5B7E0323F41A3200EE53F8 /* SignUpViewController.m in Sources */,
+				CD5B7E1223F432D700EE53F8 /* AddFoodItemViewController.m in Sources */,
 				CD235BEA23E8B15100B5C927 /* main.m in Sources */,
-				CD235BDC23E8B14E00B5C927 /* SceneDelegate.m in Sources */,
+				CD235BF223E8B41600B5C927 /* HomeViewController.m in Sources */,
+				CD5B7E1523F4347400EE53F8 /* NewFoodItemViewController.m in Sources */,
+				CD5B7E0023F41A2100EE53F8 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CD235BE023E8B14E00B5C927 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD235BE123E8B14E00B5C927 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,6 +403,7 @@
 		};
 		CD235BEE23E8B15100B5C927 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8F4840032C509B6E65B790D /* Pods-NutriGo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -304,6 +421,7 @@
 		};
 		CD235BEF23E8B15100B5C927 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76001FD06DFEF008FED558ED /* Pods-NutriGo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
