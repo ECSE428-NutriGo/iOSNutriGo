@@ -9,6 +9,7 @@
 #import "NewMealViewController.h"
 #import "AddFoodItemViewController.h"
 #import "ManualEntryViewController.h"
+@import SVProgressHUD;
 
 @interface NewMealViewController ()
 
@@ -28,7 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithRed:243.0/255.0 green:129.0/255.0 blue:147.0/255.0 alpha:1]];
+    
     [self layout];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+
+    
+    [super viewDidAppear:animated];
 }
 
 - (void) layout
