@@ -60,16 +60,17 @@
         // Nutrition Variables
         CGFloat nutritionW = self.view.frame.size.width / 2;
         CGFloat nutritionH = self.view.frame.size.height / 12;
-        CGFloat nutritionX = self.view.frame.size.width / 8;
-        CGFloat nutritionY = self.view.frame.size.height / 4;
-        CGFloat spacing = self.view.frame.size.height / 10;
+        CGFloat nutritionX = self.view.frame.size.width / 12;
+        CGFloat nutritionY = 2 * self.view.frame.size.height / 7;
+        CGFloat spacing = self.view.frame.size.height / 14;
         CGFloat nutritionSize = 36;
         
         // Button Variables
+        CGFloat bX = self.view.frame.size.width / 4;
+        CGFloat bY = 3 * self.view.frame.size.height / 4;
         CGFloat bWidth = self.view.frame.size.width / 2;
-        CGFloat bHeight = self.view.frame.size.height / 2;
-        CGFloat bX = self.view.frame.size.width / 2 - bWidth / 2;
-        CGFloat bY = self.view.frame.size.height / 2 - 2 * bHeight - offset;
+        CGFloat bHeight = self.view.frame.size.height / 12;
+        
 
         graph = [UIImage imageNamed:@"graph"];
         graphImage = [[UIImageView alloc] initWithImage:graph];
@@ -110,57 +111,54 @@
         
         // Macro labels
         calories = [[UILabel alloc] init];
-        [calories sizeToFit];
         [calories setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
         [calories setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
         [calories setText:@"CALORIES"];
-        [calories setTextAlignment:NSTextAlignmentCenter];
+        [calories setTextAlignment:NSTextAlignmentLeft];
         [calories setTextColor:[UIColor whiteColor]];
         [self.view addSubview:calories];
         
         nutritionY += spacing;
         
         fat = [[UILabel alloc] init];
-        [fat sizeToFit];
         [fat setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
         [fat setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
         [fat setText:@"FAT"];
-        [fat setTextAlignment:NSTextAlignmentCenter];
+        [fat setTextAlignment:NSTextAlignmentLeft];
         [fat setTextColor:[UIColor whiteColor]];
         [self.view addSubview:fat];
         
         nutritionY += spacing;
         
         carbs = [[UILabel alloc] init];
-        [carbs sizeToFit];
         [carbs setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
         [carbs setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
         [carbs setText:@"CARBS"];
-        [carbs setTextAlignment:NSTextAlignmentCenter];
+        [carbs setTextAlignment:NSTextAlignmentLeft];
         [carbs setTextColor:[UIColor whiteColor]];
         [self.view addSubview:carbs];
         
         nutritionY += spacing;
         
         protein = [[UILabel alloc] init];
-        [protein sizeToFit];
         [protein setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
         [protein setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
         [protein setText:@"CARBS"];
-        [protein setTextAlignment:NSTextAlignmentCenter];
+        [protein setTextAlignment:NSTextAlignmentLeft];
         [protein setTextColor:[UIColor whiteColor]];
         [self.view addSubview:protein];
         
         // Edit goals button
         editGoals = [[UILabel alloc] init];
-        [editGoals setFrame:CGRectMake(self.view.frame.size.width / 4, 3 * self.view.frame.size.height / 4, self.view.frame.size.width / 2, self.view.frame.size.height / 12)];
+        [editGoals setFrame:CGRectMake(bX, bY, bWidth, bHeight)];
         [editGoals setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
         [editGoals setText:@"EDIT GOALS"];
         [editGoals setTextAlignment:NSTextAlignmentCenter];
         [editGoals setBackgroundColor:[UIColor colorWithRed:160.0/255.0 green:82.0/255.0 blue:45.0/255.0 alpha:1]];
         [editGoals setTextColor:[UIColor whiteColor]];
         [editGoals setUserInteractionEnabled:YES];
-        [editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLogin)]];
+        // TODO
+        //[editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editGoals)]];
         [self.view addSubview:editGoals];
         
         
