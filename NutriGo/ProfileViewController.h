@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
 
+@property (nonatomic, retain) NSString *caloriesNumVal;
+@property (nonatomic, retain) NSString *fatNumVal;
+@property (nonatomic, retain) NSString *carbsNumVal;
+@property (nonatomic, retain) NSString *proteinNumVal;
+
 @end
 
 NS_ASSUME_NONNULL_END

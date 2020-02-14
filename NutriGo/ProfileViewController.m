@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "HomeViewController.h"
 #import "MealViewController.h"
+#import "EditProfileViewController.h"
 
 @interface ProfileViewController ()
 
@@ -25,16 +26,17 @@
 @property (nonatomic, retain) UILabel *fat;
 @property (nonatomic, retain) UILabel *carbs;
 @property (nonatomic, retain) UILabel *protein;
+@property (nonatomic, retain) UILabel *caloriesNum;
+@property (nonatomic, retain) UILabel *fatNum;
+@property (nonatomic, retain) UILabel *carbsNum;
+@property (nonatomic, retain) UILabel *proteinNum;
 @property (nonatomic, retain) UILabel *editGoals;
-@property(nonatomic) NSTextAlignment textAlignment;
-
-
 
 @end
 
 @implementation ProfileViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, goalsLabel, calories, fat, carbs, protein, editGoals;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, goalsLabel, calories, fat, carbs, protein, editGoals, caloriesNum, fatNum, proteinNum, carbsNum, caloriesNumVal, fatNumVal, carbsNumVal, proteinNumVal;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -61,9 +63,10 @@
         CGFloat nutritionW = self.view.frame.size.width / 2;
         CGFloat nutritionH = self.view.frame.size.height / 12;
         CGFloat nutritionX = self.view.frame.size.width / 12;
+        CGFloat numX = 11 * self.view.frame.size.width / 12 - nutritionW;
         CGFloat nutritionY = 2 * self.view.frame.size.height / 7;
         CGFloat spacing = self.view.frame.size.height / 14;
-        CGFloat nutritionSize = 36;
+        CGFloat nutritionSize = 32;
         
         // Button Variables
         CGFloat bX = self.view.frame.size.width / 4;
@@ -71,7 +74,6 @@
         CGFloat bWidth = self.view.frame.size.width / 2;
         CGFloat bHeight = self.view.frame.size.height / 12;
         
-
         graph = [UIImage imageNamed:@"graph"];
         graphImage = [[UIImageView alloc] initWithImage:graph];
         [graphImage setFrame:CGRectMake(offset, yStart, size, size)];
@@ -118,6 +120,14 @@
         [calories setTextColor:[UIColor whiteColor]];
         [self.view addSubview:calories];
         
+        caloriesNum = [[UILabel alloc] init];
+        [caloriesNum setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
+        [caloriesNum setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [caloriesNum setText:[caloriesNumVal stringByAppendingString:@"cal"]];
+        [caloriesNum setTextAlignment:NSTextAlignmentRight];
+        [caloriesNum setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:caloriesNum];
+        
         nutritionY += spacing;
         
         fat = [[UILabel alloc] init];
@@ -127,6 +137,14 @@
         [fat setTextAlignment:NSTextAlignmentLeft];
         [fat setTextColor:[UIColor whiteColor]];
         [self.view addSubview:fat];
+        
+        fatNum = [[UILabel alloc] init];
+        [fatNum setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
+        [fatNum setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [fatNum setText:[fatNumVal stringByAppendingString:@"g"]];
+        [fatNum setTextAlignment:NSTextAlignmentRight];
+        [fatNum setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:fatNum];
         
         nutritionY += spacing;
         
@@ -138,15 +156,31 @@
         [carbs setTextColor:[UIColor whiteColor]];
         [self.view addSubview:carbs];
         
+        carbsNum = [[UILabel alloc] init];
+        [carbsNum setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
+        [carbsNum setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [carbsNum setText:[carbsNumVal stringByAppendingString:@"g"]];
+        [carbsNum setTextAlignment:NSTextAlignmentRight];
+        [carbsNum setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:carbsNum];
+        
         nutritionY += spacing;
         
         protein = [[UILabel alloc] init];
         [protein setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
         [protein setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
-        [protein setText:@"CARBS"];
+        [protein setText:@"PROTEIN"];
         [protein setTextAlignment:NSTextAlignmentLeft];
         [protein setTextColor:[UIColor whiteColor]];
         [self.view addSubview:protein];
+        
+        proteinNum = [[UILabel alloc] init];
+        [proteinNum setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
+        [proteinNum setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [proteinNum setText:[proteinNumVal stringByAppendingString:@"g"]];
+        [proteinNum setTextAlignment:NSTextAlignmentRight];
+        [proteinNum setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:proteinNum];
         
         // Edit goals button
         editGoals = [[UILabel alloc] init];
@@ -157,13 +191,16 @@
         [editGoals setBackgroundColor:[UIColor colorWithRed:160.0/255.0 green:82.0/255.0 blue:45.0/255.0 alpha:1]];
         [editGoals setTextColor:[UIColor whiteColor]];
         [editGoals setUserInteractionEnabled:YES];
-        // TODO
-        //[editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editGoals)]];
+        [editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editGoals)]];
         [self.view addSubview:editGoals];
         
-        
-        
     }
+}
+
+- (void) editGoals
+{
+    EditProfileViewController *vc = [[EditProfileViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) selectGraph
@@ -194,6 +231,18 @@
     [filter setValue:coreImage forKey:kCIInputImageKey];
     CIImage *result = [filter valueForKey:kCIOutputImageKey];
     return [UIImage imageWithCIImage:result];
+}
+
+- (void) receiveData:(NSString *) calories fat:(NSString *) fat carbs:(NSString *) carbs protein:(NSString *) protein
+{
+    caloriesNumVal = calories;
+    fatNumVal = fat;
+    carbsNumVal = carbs;
+    proteinNumVal = protein;
+    [caloriesNum setText:[caloriesNumVal stringByAppendingString:@"cal"]];
+    [fatNum setText:[fatNumVal stringByAppendingString:@"g"]];
+    [carbsNum setText:[carbsNumVal stringByAppendingString:@"g"]];
+    [proteinNum setText:[proteinNumVal stringByAppendingString:@"g"]];
 }
 
 @end
