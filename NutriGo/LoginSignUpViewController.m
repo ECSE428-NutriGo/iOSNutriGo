@@ -40,7 +40,7 @@
         CGFloat xStart = self.view.frame.size.width / 2 - width / 2;
         CGFloat yStart = self.view.frame.size.height / 2 - 2 * height - offset;
         
-        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meal"]];
+        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
         [logoView setFrame:CGRectMake(xStart, yStart, width, 2 * height)];
         [logoView setContentMode:UIViewContentModeScaleAspectFit];
         [self.view addSubview:logoView];

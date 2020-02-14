@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "MealViewController.h"
 #import "ProfileViewController.h"
+@import SVProgressHUD;
 
 @interface HomeViewController ()
 
@@ -20,17 +21,29 @@
 @property (nonatomic, retain) UIImageView *profileView;
 @property (nonatomic, retain) UIImage *settings;
 @property (nonatomic, retain) UIImageView *settingsView;
+@property (nonatomic, retain) UIView *calories;
+@property (nonatomic, retain) UIView *fat;
+@property (nonatomic, retain) UIView *carbs;
+@property (nonatomic, retain) UIView *protein;
+@property (nonatomic, retain) UILabel *today;
+@property (nonatomic, retain) NSArray *macros;
 
 @end
 
 @implementation HomeViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layout];
     [self.view setBackgroundColor:[UIColor colorWithRed:121.0/255.0 green:193.0/255.0 blue:200.0/255.0 alpha:1]];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self resetFrames];
+    [super viewWillAppear:animated];
 }
 
 - (void) layout
@@ -69,7 +82,92 @@
         [settingsView setUserInteractionEnabled:YES];
         [settingsView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectSettings)]];
         [self.view addSubview:settingsView];
+        
+        
+        CGFloat xStart = self.view.frame.size.width / 10;
+        CGFloat section = (2 * self.view.frame.size.height / 3) / 9;
+        CGFloat end = xStart + 4 * self.view.frame.size.width / 5;
+        CGFloat width = 4 * self.view.frame.size.width / 5;
+        yStart = self.view.frame.size.height / 4;
+        
+        UIImageView *line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
+        [line setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
+        [self.view addSubview:line];
+        
+        calories = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        [calories setBackgroundColor:[UIColor colorWithRed:0/255.0 green:47.0/255.0 blue:51.0/255.0 alpha:1]];
+        [self.view addSubview:calories];
+        
+        yStart += 2 * section;
+        
+        UIImageView *line2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
+        [line2 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
+        [self.view addSubview:line2];
+        
+        fat = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        [fat setBackgroundColor:[UIColor colorWithRed:0/255.0 green:87.0/255.0 blue:95.0/255.0 alpha:1]];
+        [self.view addSubview:fat];
+        
+        yStart += 2 * section;
+        
+        UIImageView *line3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
+        [line3 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
+        [self.view addSubview:line3];
+        
+        carbs = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        [carbs setBackgroundColor:[UIColor colorWithRed:0/255.0 green:115.0/255.0 blue:126.0/255.0 alpha:1]];
+        [self.view addSubview:carbs];
+        
+        yStart += 2 * section;
+        
+        UIImageView *line4 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
+        [line4 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
+        [self.view addSubview:line4];
+        
+        protein = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        [protein setBackgroundColor:[UIColor colorWithRed:0/255.0 green:154.0/255.0 blue:170.0/255.0 alpha:1]];
+        [self.view addSubview:protein];
     }
+}
+
+- (void) resetFrames
+{
+    [SVProgressHUD show];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/daily/"]];
+    [request setHTTPMethod:@"GET"];
+    
+    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        macros = jsonResult;
+        
+        if (jsonError) {
+            NSLog(@"error is %@", [jsonError localizedDescription]);
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                [SVProgressHUD dismiss];
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
+        
+    }];
+    [task resume];
 }
 
 - (void) selectMeal
