@@ -10,13 +10,84 @@
 
 @interface SignUpViewController ()
 
+@property (nonatomic, retain) UIImageView *logoView;
+@property (nonatomic, retain) UITextField *emailField;
+@property (nonatomic, retain) UIView *emailView;
+@property (nonatomic, retain) UITextField *pwdField;
+@property (nonatomic, retain) UIView *pwdView;
+@property (nonatomic, retain) UILabel *signIn;
+
 @end
 
 @implementation SignUpViewController
 
+@synthesize logoView, emailField, emailView, pwdField, pwdView, signIn;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self layout];
+    [self.view setBackgroundColor:[UIColor colorWithRed:121.0/255.0 green:193.0/255.0 blue:200.0/255.0 alpha:1]];
+}
+
+- (void) layout {
+    
+    CGFloat width = self.view.frame.size.width / 2;
+    CGFloat height = self.view.frame.size.height / 12;
+    CGFloat offset = self.view.frame.size.height / 6;
+    CGFloat xStart = self.view.frame.size.width / 2 - width / 2;
+    CGFloat yStart = self.view.frame.size.height / 2 - 2 * height - offset;
+    
+    logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meal"]];
+    [logoView setFrame:CGRectMake(xStart, yStart, width, 2 * height)];
+    [logoView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.view addSubview:logoView];
+    
+    width = self.view.frame.size.width / 1.3;
+    xStart = self.view.frame.size.width / 2 - width / 2;
+    offset = self.view.frame.size.height / 10;
+    yStart = self.view.frame.size.height / 2 - offset;
+    height = self.view.frame.size.height / 20;
+    
+    CGRect emailRect = CGRectMake(xStart, yStart, width, height);
+    emailField = [[UITextField alloc] initWithFrame:emailRect];
+    emailField.placeholder = @"email";
+    CALayer *bottomLine = [CALayer layer];
+    bottomLine.frame = CGRectMake(0.0f, emailRect.size.height, width, 1.0f);
+    bottomLine.backgroundColor = [UIColor whiteColor].CGColor;
+    [emailField setBorderStyle:UITextBorderStyleNone];
+    [emailField.layer addSublayer:bottomLine];
+    
+    [self.view addSubview:emailField];
+    
+    yStart = self.view.frame.size.height / 2;
+    
+    CGRect pwdRect = CGRectMake(xStart, yStart, width, height);
+    pwdField = [[UITextField alloc] initWithFrame:pwdRect];
+    pwdField.placeholder = @"password";
+    bottomLine = [CALayer layer];
+    bottomLine.frame = CGRectMake(0.0f, pwdRect.size.height, width, 1.0f);
+    bottomLine.backgroundColor = [UIColor whiteColor].CGColor;
+    [pwdField setBorderStyle:UITextBorderStyleNone];
+    [pwdField.layer addSublayer:bottomLine];
+    
+    [self.view addSubview:pwdField];
+    
+    yStart += offset*2;
+    
+    signIn = [[UILabel alloc] init];
+    [signIn setFrame:CGRectMake(xStart, yStart, width, height)];
+    [signIn setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
+    [signIn setText:@"SIGN UP"];
+    [signIn setTextAlignment:NSTextAlignmentCenter];
+    [signIn setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:47.0/255.0 blue:51.0/255.0 alpha:1]];
+    [signIn setTextColor:[UIColor whiteColor]];
+    [signIn setUserInteractionEnabled:YES];
+    [signIn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUp)]];
+    [self.view addSubview:signIn];
+}
+
+- (void) signUp {
+    
 }
 
 @end
