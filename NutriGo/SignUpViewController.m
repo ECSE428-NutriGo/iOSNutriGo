@@ -90,6 +90,16 @@
 }
 
 - (void) signUp {
+    
+    if (emailField.text.length == 0 || pwdField.text.length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Empty Field"
+                                                            message:@"Please fill out all fields before registering."
+                                                            delegate:self
+                                                            cancelButtonTitle:@"Dismiss"
+                                                            otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
 
     NSString *post = [NSString stringWithFormat:@"username=%@&password1=%@&password2=%@&email=%@", emailField.text, pwdField.text, pwdField.text, emailField.text];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
@@ -109,14 +119,13 @@
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSError *jsonError = nil;
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
         if (!jsonResult) {
             NSLog(@"Error parsing JSON: %@", jsonError);
         } else {
-            for(NSDictionary *item in jsonResult) {
-                NSLog(@"Item: %@", item);
-            }
+            NSLog(myString);
         }
         
     }];
