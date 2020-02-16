@@ -157,7 +157,7 @@
     [SVProgressHUD show];
     
     NSMutableString *post = [NSMutableString stringWithString:@"fooditems="];
-    [post appendString:[[ids valueForKey:@"description"] componentsJoinedByString:@", "]];
+    [post appendString:[ids componentsJoinedByString:@", "]];
     [post appendFormat:@"&name=%@", [search text]];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
