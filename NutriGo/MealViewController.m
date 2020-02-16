@@ -47,7 +47,7 @@
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/meal/"]];
     [request setHTTPMethod:@"GET"];
     
-    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    [request addValue:@"Token     205acdb68133cabc69cd26128b14bfa17076ef1b" forHTTPHeaderField:@"Authorization"];
     
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -57,6 +57,9 @@
         
         NSError *jsonError = nil;
         NSArray* jsonUsers = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        printf("Response String:\n");
+        NSLog(@"%@", responseString);
         
         if (jsonError) {
             NSLog(@"error is %@", [jsonError localizedDescription]);
