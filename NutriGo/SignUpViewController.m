@@ -7,6 +7,7 @@
 //
 
 #import "SignUpViewController.h"
+@import SVProgressHUD;
 
 @interface SignUpViewController ()
 
@@ -100,7 +101,9 @@
         [alert show];
         return;
     }
-
+    
+    [SVProgressHUD show];
+    __block NSInteger *anInt = 0;
     NSString *post = [NSString stringWithFormat:@"username=%@&password1=%@&password2=%@&email=%@", emailField.text, pwdField.text, pwdField.text, emailField.text];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 
@@ -119,17 +122,44 @@
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSError *jsonError = nil;
-        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
 
-        if (!jsonResult) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+
+        if (jsonError) {
             NSLog(@"Error parsing JSON: %@", jsonError);
-        } else {
-            NSLog(myString);
         }
+        NSLog(@"%@", dict);
         
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                [SVProgressHUD dismiss];
+                if (dict[@"email"] != nil) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"User Already Exists"
+                                                                        message:@"A user is already registered with this email."
+                                                                        delegate:self
+                                                                        cancelButtonTitle:@"Dismiss"
+                                                                        otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                }
+                if (dict[@"password1"] != nil) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Weak Password"
+                                                                        message:dict[@"password1"][0]
+                                                                        delegate:self
+                                                                        cancelButtonTitle:@"Dismiss"
+                                                                        otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                }
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
     }];
     [task resume];
+    // task is asynchrnous. use call back to pass data
 }
 
 @end
