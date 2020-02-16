@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A6841E923F5CAD100BBAD42 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6841E823F5CAD100BBAD42 /* EditProfileViewController.m */; };
 		CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BD823E8B14E00B5C927 /* AppDelegate.m */; };
 		CD235BE423E8B15100B5C927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE323E8B15100B5C927 /* Assets.xcassets */; };
 		CD235BE723E8B15100B5C927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A6841E723F5CAD100BBAD42 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		6A6841E823F5CAD100BBAD42 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		76001FD06DFEF008FED558ED /* Pods-NutriGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.release.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.release.xcconfig"; sourceTree = "<group>"; };
 		8B0EFAAE9686AE3778793DA8 /* Pods_NutriGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NutriGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8F4840032C509B6E65B790D /* Pods-NutriGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.debug.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,8 +131,10 @@
 				CD5B7E0523F41C5900EE53F8 /* MealViewController.m */,
 				CD5B7E0723F4248600EE53F8 /* NewMealViewController.h */,
 				CD5B7E0823F4248600EE53F8 /* NewMealViewController.m */,
-				CD5B7E0A23F4279400EE53F8 /* ProfileViewController.h */,
 				CD5B7E0B23F4279400EE53F8 /* ProfileViewController.m */,
+				CD5B7E0A23F4279400EE53F8 /* ProfileViewController.h */,
+				6A6841E723F5CAD100BBAD42 /* EditProfileViewController.h */,
+				6A6841E823F5CAD100BBAD42 /* EditProfileViewController.m */,
 				CD5B7E0D23F42E0700EE53F8 /* ManualEntryViewController.h */,
 				CD5B7E0E23F42E0700EE53F8 /* ManualEntryViewController.m */,
 				CD5B7E1023F432D600EE53F8 /* AddFoodItemViewController.h */,
@@ -270,6 +275,7 @@
 				CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */,
 				CD5B7E0323F41A3200EE53F8 /* SignUpViewController.m in Sources */,
 				CD5B7E1223F432D700EE53F8 /* AddFoodItemViewController.m in Sources */,
+				6A6841E923F5CAD100BBAD42 /* EditProfileViewController.m in Sources */,
 				CD235BEA23E8B15100B5C927 /* main.m in Sources */,
 				CD235BF223E8B41600B5C927 /* HomeViewController.m in Sources */,
 				CD5B7E1523F4347400EE53F8 /* NewFoodItemViewController.m in Sources */,
