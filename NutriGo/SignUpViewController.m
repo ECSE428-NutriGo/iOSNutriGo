@@ -7,6 +7,7 @@
 //
 
 #import "SignUpViewController.h"
+#import "HomeViewController.h"
 @import SVProgressHUD;
 
 @interface SignUpViewController ()
@@ -103,7 +104,7 @@
     }
     
     [SVProgressHUD show];
-    __block NSInteger *anInt = 0;
+    
     NSString *post = [NSString stringWithFormat:@"username=%@&password1=%@&password2=%@&email=%@", emailField.text, pwdField.text, pwdField.text, emailField.text];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 
@@ -135,15 +136,15 @@
             if ([[NSThread currentThread] isMainThread]){
                 [SVProgressHUD dismiss];
                 if (dict[@"email"] != nil) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"User Already Exists"
-                                                                        message:@"A user is already registered with this email."
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Error"
+                                                                        message:dict[@"email"][0]
                                                                         delegate:self
                                                                         cancelButtonTitle:@"Dismiss"
                                                                         otherButtonTitles:nil];
                     [alert show];
                     return;
                 }
-                if (dict[@"password1"] != nil) {
+                else if (dict[@"password1"] != nil) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Weak Password"
                                                                         message:dict[@"password1"][0]
                                                                         delegate:self
@@ -152,6 +153,9 @@
                     [alert show];
                     return;
                 }
+                else if (dict[@"key"] != nil) {
+                    [self goToHome];
+                }
             }
             else{
                 NSLog(@"Not in main thread--completion handler");
@@ -159,7 +163,11 @@
         });
     }];
     [task resume];
-    // task is asynchrnous. use call back to pass data
+}
+
+- (void) goToHome {
+    HomeViewController *vc = [[HomeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
