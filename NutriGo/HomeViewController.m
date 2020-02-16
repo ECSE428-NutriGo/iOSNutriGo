@@ -34,7 +34,7 @@
 
 @implementation HomeViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros, result;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros, result, goals;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -85,11 +85,14 @@
         [settingsView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectSettings)]];
         [self.view addSubview:settingsView];
         
-        yStart = self.view.frame.size.height / 8;
+        yStart = self.view.frame.size.height / 12;
         
         today = [[UILabel alloc] init];
         [today setFrame:CGRectMake(0, yStart, self.view.frame.size.width, self.view.frame.size.height / 7)];
-        [today setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:self.view.frame.size.height / 8]];
+        [today setText:@"TODAY"];
+        [today setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:self.view.frame.size.height / 12]];
+        [today setTextColor:[UIColor whiteColor]];
+        [today setTextAlignment:NSTextAlignmentCenter];
         [self.view addSubview:today];
         
         
@@ -166,17 +169,41 @@
             return;
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([[NSThread currentThread] isMainThread]){
-                [SVProgressHUD dismiss];
-            }
-            else{
-                NSLog(@"Not in main thread--completion handler");
-            }
-        });
+        else
+        {
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+            
+            [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
+            [request setHTTPMethod:@"GET"];
+            
+            [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+            
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+            NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                
+                NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                
+                NSError *jsonError = nil;
+                NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                
+                goals = jsonResult;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([[NSThread currentThread] isMainThread]){
+                        [SVProgressHUD dismiss];
+                        [self setBars];
+                    }
+                    else{
+                        NSLog(@"Not in main thread--completion handler");
+                    }
+                });
+            }];
+            [task resume];
+        }
         
     }];
     [task resume];
+    
 }
 
 - (void) selectMeal
@@ -207,6 +234,55 @@
     [filter setValue:coreImage forKey:kCIInputImageKey];
     CIImage *result = [filter valueForKey:kCIOutputImageKey];
     return [UIImage imageWithCIImage:result];
+}
+
+- (void) setBars
+{
+    CGFloat xStart = self.view.frame.size.width / 10;
+    CGFloat section = (2 * self.view.frame.size.height / 3) / 9;
+    CGFloat end = xStart + 4 * self.view.frame.size.width / 5;
+    CGFloat width = 4 * self.view.frame.size.width / 5;
+    CGFloat yStart = self.view.frame.size.height / 4;
+    
+    CGFloat carbsVal = ((CGFloat) [[self.macros valueForKey:@"carb"] integerValue]);
+    CGFloat fatVal = (CGFloat) [[self.macros valueForKey:@"fat"] integerValue];
+    CGFloat proteinVal = (CGFloat) [[self.macros valueForKey:@"protein"] integerValue];
+    CGFloat calVal = (4 * carbsVal + 4 * proteinVal + 9 * fatVal) / 2000.0;
+    
+    [calories setFrame:CGRectMake(xStart, yStart, calVal * width, section)];
+    
+    yStart += 2 * section;
+    
+    if ([[goals valueForKey:@"fat_target"] integerValue] == 0)
+    {
+        [fat setFrame:CGRectMake(xStart, yStart, width, section)];
+    }
+    else
+    {
+        [fat setFrame:CGRectMake(xStart, yStart, (fatVal / ((CGFloat) [[goals valueForKey:@"fat_target"] integerValue])) * width, section)];
+    }
+    
+    yStart += 2 * section;
+    
+    if ([[goals valueForKey:@"carb_target"] integerValue] == 0)
+    {
+        [carbs setFrame:CGRectMake(xStart, yStart, width, section)];
+    }
+    else
+    {
+        [carbs setFrame:CGRectMake(xStart, yStart, (carbsVal / ((CGFloat) [[goals valueForKey:@"carb_target"] integerValue])) * width, section)];
+    }
+    
+    yStart += 2 * section;
+    
+    if ([[goals valueForKey:@"protein_target"] integerValue] == 0)
+    {
+        [protein setFrame:CGRectMake(xStart, yStart, width, section)];
+    }
+    else
+    {
+        [protein setFrame:CGRectMake(xStart, yStart, (proteinVal / ((CGFloat) [[goals valueForKey:@"protein_target"] integerValue])) * width, section)];
+    }
 }
 
 @end

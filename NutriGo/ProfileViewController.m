@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "MealViewController.h"
 #import "EditProfileViewController.h"
+@import SVProgressHUD;
 
 @interface ProfileViewController ()
 
@@ -40,8 +41,15 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    [SVProgressHUD show];
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:156.0/255.0 blue:99.0/255.0 alpha:1]];
     [self layout];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self loadValues];
+    [super viewWillAppear:animated];
 }
 
 - (void) layout
@@ -182,6 +190,8 @@
         [proteinNum setTextColor:[UIColor whiteColor]];
         [self.view addSubview:proteinNum];
         
+        bY -= 50;
+        
         // Edit goals button
         editGoals = [[UILabel alloc] init];
         [editGoals setFrame:CGRectMake(bX, bY, bWidth, bHeight)];
@@ -243,6 +253,41 @@
     [fatNum setText:[fatNumVal stringByAppendingString:@"g"]];
     [carbsNum setText:[carbsNumVal stringByAppendingString:@"g"]];
     [proteinNum setText:[proteinNumVal stringByAppendingString:@"g"]];
+}
+
+- (void) loadValues
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
+    [request setHTTPMethod:@"GET"];
+    
+    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                NSInteger calories = [[jsonResult valueForKey:@"protein_target"] integerValue] * 4 + [[jsonResult valueForKey:@"carb_target"] integerValue] * 4 + [[jsonResult valueForKey:@"fat_target"] integerValue] * 9;
+                caloriesNumVal = [NSString stringWithFormat: @"%ld", (long) calories];
+                [caloriesNum setText:[caloriesNumVal stringByAppendingString:@" CAL"]];
+                [fatNum setText:[[jsonResult valueForKey:@"fat_target"] stringByAppendingString:@" G"]];
+                [carbsNum setText:[[jsonResult valueForKey:@"carb_target"] stringByAppendingString:@" G"]];
+                [proteinNum setText:[[jsonResult valueForKey:@"protein_target"] stringByAppendingString:@" G"]];
+                [SVProgressHUD dismiss];
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
+    }];
+    [task resume];
 }
 
 @end

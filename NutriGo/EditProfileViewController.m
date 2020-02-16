@@ -8,6 +8,7 @@
 
 #import "EditProfileViewController.h"
 #import "ProfileViewController.h"
+@import SVProgressHUD;
 
 @interface EditProfileViewController ()
 
@@ -33,15 +34,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:156.0/255.0 blue:99.0/255.0 alpha:1]];
+    [SVProgressHUD show];
     [self layout];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
 
-    
+    [self loadValues];
     [super viewDidAppear:animated];
 }
+
 
 - (void) layout
 {
@@ -97,6 +100,7 @@
         [caloriesNum setText:caloriesNumStr];
         [caloriesNum setTextAlignment:NSTextAlignmentRight];
         [caloriesNum setTextColor:[UIColor whiteColor]];
+        [self setTextFieldBorder:caloriesNum];
         [self.view addSubview:caloriesNum];
         
         nutritionY += spacing;
@@ -115,6 +119,7 @@
         [fatNum setText:fatNumStr];
         [fatNum setTextAlignment:NSTextAlignmentRight];
         [fatNum setTextColor:[UIColor whiteColor]];
+        [self setTextFieldBorder:fatNum];
         [self.view addSubview:fatNum];
         
         nutritionY += spacing;
@@ -133,6 +138,7 @@
         [carbsNum setText:carbsNumStr];
         [carbsNum setTextAlignment:NSTextAlignmentRight];
         [carbsNum setTextColor:[UIColor whiteColor]];
+        [self setTextFieldBorder:carbsNum];
         [self.view addSubview:carbsNum];
         
         nutritionY += spacing;
@@ -151,6 +157,7 @@
         [proteinNum setText:proteinNumStr];
         [proteinNum setTextAlignment:NSTextAlignmentRight];
         [proteinNum setTextColor:[UIColor whiteColor]];
+        [self setTextFieldBorder:proteinNum];
         [self.view addSubview:proteinNum];
         
         // Edit goals button
@@ -185,12 +192,93 @@
 
 - (void) saveChanges
 {
-    ProfileViewController *vc = [[ProfileViewController alloc] init];
-    vc.caloriesNumVal = caloriesNum.text;
-    vc.fatNumVal = fatNum.text;
-    vc.carbsNumVal = carbsNum.text;
-    vc.proteinNumVal = proteinNum.text;
-    [self.navigationController pushViewController:vc animated:YES];
+    NSString *post = [NSString stringWithFormat:@"username=%@&protein_target=%@&carb_target=%@&fat_target=%@", @"samantha.cattani@mail.mcgill.ca", [proteinNum text], [carbsNum text], [fatNum text]];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
+    [request setHTTPMethod:@"PUT"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+         
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+
+        if (jsonError) {
+            NSLog(@"Error parsing JSON: %@", jsonError);
+        }
+        NSLog(@"%@", dict);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                [SVProgressHUD dismiss];
+                ProfileViewController *vc = [[ProfileViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
+    }];
+    [task resume];
+
+}
+
+- (void) setTextFieldBorder :(UITextField *)textField{
+    
+    CALayer *border = [CALayer layer];
+    CGFloat borderWidth = 4;
+    border.borderColor = [UIColor whiteColor].CGColor;
+    border.frame = CGRectMake(0, textField.frame.size.height - borderWidth, textField.frame.size.width, textField.frame.size.height);
+    border.borderWidth = borderWidth;
+    [textField.layer addSublayer:border];
+    textField.layer.masksToBounds = YES;
+}
+
+- (void) loadValues
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
+    [request setHTTPMethod:@"GET"];
+    
+    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                NSInteger calories = [[jsonResult valueForKey:@"protein_target"] integerValue] * 4 + [[jsonResult valueForKey:@"carb_target"] integerValue] * 4 + [[jsonResult valueForKey:@"fat_target"] integerValue] * 9;
+                NSString * caloriesNumVal = [NSString stringWithFormat: @"%ld", (long) calories];
+                [caloriesNum setText:caloriesNumVal];
+                [fatNum setText:[jsonResult valueForKey:@"fat_target"]];
+                [carbsNum setText:[jsonResult valueForKey:@"carb_target"]];
+                [proteinNum setText:[jsonResult valueForKey:@"protein_target"]];
+                [SVProgressHUD dismiss];
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
+    }];
+    [task resume];
 }
 
 @end

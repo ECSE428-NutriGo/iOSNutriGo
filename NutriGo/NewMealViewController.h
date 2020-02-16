@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NewMealViewController : UIViewController
 
+@property (nonatomic, retain) NSMutableArray *ids;
+@property (nonatomic, retain) NSMutableArray *foodItemTitles;
+
 @end
 
 NS_ASSUME_NONNULL_END

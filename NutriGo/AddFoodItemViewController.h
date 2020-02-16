@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewMealViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddFoodItemViewController : UIViewController
+
+@property (nonatomic, retain) NSMutableArray *ids;
+@property (nonatomic, retain) NSMutableArray *foodItemTitles;
 
 @end
 

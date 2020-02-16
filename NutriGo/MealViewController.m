@@ -25,12 +25,13 @@
 @property (nonatomic, retain) UITextField *search;
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UILabel *addMeal;
+@property (nonatomic) NSDictionary *result;
 
 @end
 
 @implementation MealViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, search, scrollView, addMeal;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, search, scrollView, addMeal, result;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,7 +57,8 @@
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSError *jsonError = nil;
-        NSArray* jsonUsers = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSDictionary* jsonUsers = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        self.result = jsonUsers;
         
         if (jsonError) {
             NSLog(@"error is %@", [jsonError localizedDescription]);
@@ -75,6 +77,7 @@
         
     }];
     [task resume];
+    [super viewDidAppear:animated];
 }
 
 - (void) layoutBottom
@@ -121,12 +124,12 @@
     CGFloat width = 4 * self.view.frame.size.width / 5;
     
     search = [[UITextField alloc] init];
-    [search setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart, width, height)];
+    [search setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart, width, height / 2)];
     [self setTextFieldBorder:search];
     [self.view addSubview:search];
     
-    yStart += height;
-    CGFloat scrollHeight = 4.5 * height;
+    yStart += height / 2;
+    CGFloat scrollHeight = 4.8 * height;
     CGFloat xStart = self.view.frame.size.width / 10;
     offset = self.view.frame.size.height / 30;
     
@@ -149,23 +152,45 @@
 {
         
         CGFloat size = self.view.frame.size.width / 8;
-        CGFloat offset = self.view.frame.size.width / 2 / 5;
+        CGFloat offset = self.view.frame.size.width / 2 / 8;
         CGFloat yStart = 17 * self.view.frame.size.height / 20;
         
         yStart = self.view.frame.size.height / 10;
         CGFloat height = self.view.frame.size.height / 8;
         CGFloat width = 4 * self.view.frame.size.width / 5;
         
-        // placeholder for now
-        
         yStart = 7;
-        
-        for (int i = 0; i < 10; i++)
+    
+        for (int i = 0; i < [[result valueForKey:@"meals"] count]; i++)
         {
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, yStart, width, height)];
             yStart += offset + height;
             [view setBackgroundColor:[UIColor colorWithRed:178.0/255.0 green:88.0/255.0 blue:103.0/255.0 alpha:1]];
             [scrollView addSubview:view];
+            
+            UILabel *title = [[UILabel alloc] init];
+            NSString *mealName = [[[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"name"] uppercaseString];
+            [title setTextColor:[UIColor whiteColor]];
+            [title setText:mealName];
+            [title setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+            [title setFrame:CGRectMake(10, 5, view.frame.size.width - 10, view.frame.size.height / 2)];
+            [view addSubview:title];
+            
+            UILabel *nutritionInfo = [[UILabel alloc] init];
+            NSString *protein = [[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"protein"];
+            NSString *fat = [[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"fat"];
+            NSString *carb = [[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"carb"];
+            NSString *display = [NSString stringWithFormat:@"PROTEIN: %@ G, FAT: %@ G, CARBS: %@ G", protein, fat,carb];
+            [nutritionInfo setTextColor:[UIColor whiteColor]];
+            [nutritionInfo setText:display];
+            [nutritionInfo setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:16]];
+            [nutritionInfo setNumberOfLines:2];
+            [nutritionInfo setFrame:CGRectMake(10, view.frame.size.height / 2 - 10, view.frame.size.width - 10, view.frame.size.height / 2)];
+            [view addSubview:nutritionInfo];
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(eatMeal:)];
+            [tap setName:[[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"id"]];
+            [view addGestureRecognizer:tap];
         }
         
         
@@ -217,6 +242,57 @@
 {
     [settingsView setImage:[self inverseColor:settingsView.image]];
     [mealView setImage:[UIImage imageNamed:@"meal"]];
+}
+
+- (IBAction) eatMeal: (UITapGestureRecognizer *) sender
+{
+    NSString *string = [sender name];
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSMutableString *dateString = [[dateFormatter stringFromDate:currentDate] mutableCopy];
+    
+    NSString *post = [NSString stringWithFormat:@"meal=%d&timestamp=%@", [string intValue], dateString];
+       NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+       NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+       NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+       [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/mealentry/"]];
+       [request setHTTPMethod:@"POST"];
+       [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+       [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+       [request setHTTPBody:postData];
+       [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+       
+       NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+       NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+           NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+           
+           NSError *jsonError = nil;
+           NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+
+           NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+
+           if (jsonError) {
+               NSLog(@"Error parsing JSON: %@", jsonError);
+           }
+           NSLog(@"%@", dict);
+           
+           dispatch_sync(dispatch_get_main_queue(), ^{
+               if ([[NSThread currentThread] isMainThread]){
+                   [SVProgressHUD dismiss];
+                   ProfileViewController *vc = [[ProfileViewController alloc] init];
+                   [self.navigationController pushViewController:vc animated:YES];
+               }
+               else{
+                   NSLog(@"Not in main thread--completion handler");
+               }
+           });
+       }];
+       [task resume];
+    
 }
 
 @end

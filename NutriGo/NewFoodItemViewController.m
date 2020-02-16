@@ -8,6 +8,7 @@
 
 #import "NewFoodItemViewController.h"
 #import "AddFoodItemViewController.h"
+@import SVProgressHUD;
 
 @interface NewFoodItemViewController ()
 
@@ -43,14 +44,14 @@
     CGFloat width = 4 * self.view.frame.size.width / 5;
     
     cancel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 10, self.view.frame.size.height / 15, self.view.frame.size.width / 4, self.view.frame.size.height / 20)];
-           [cancel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
-           [cancel setText:@"CANCEL"];
-           [cancel setTextAlignment:NSTextAlignmentCenter];
-           [cancel setBackgroundColor:[UIColor colorWithRed:178.0/255.0 green:88.0/255.0 blue:103.0/255.0 alpha:1]];
-           [cancel setTextColor:[UIColor whiteColor]];
-           [cancel setUserInteractionEnabled:YES];
-           [cancel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popVC)]];
-           [self.view addSubview:cancel];
+    [cancel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
+    [cancel setText:@"CANCEL"];
+    [cancel setTextAlignment:NSTextAlignmentCenter];
+    [cancel setBackgroundColor:[UIColor colorWithRed:178.0/255.0 green:88.0/255.0 blue:103.0/255.0 alpha:1]];
+    [cancel setTextColor:[UIColor whiteColor]];
+    [cancel setUserInteractionEnabled:YES];
+    [cancel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popVC)]];
+    [self.view addSubview:cancel];
     
     
     Title = [[UILabel alloc] init];
@@ -77,11 +78,11 @@
     
     
     gramLabel = [[UILabel alloc] init];
-       [gramLabel setText:@"grams"];
-       [gramLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
-       [gramLabel setFrame:CGRectMake(self.view.frame.size.width / 2+ width / 3.5, yStart+180, width/4, height)];
-       [gramLabel setTextColor:[UIColor whiteColor]];
-       [self.view addSubview:gramLabel];
+    [gramLabel setText:@"grams"];
+    [gramLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
+    [gramLabel setFrame:CGRectMake(self.view.frame.size.width / 2+ width / 3.5, yStart+180, width/4, height)];
+    [gramLabel setTextColor:[UIColor whiteColor]];
+    [self.view addSubview:gramLabel];
     
     fatLabel = [[UILabel alloc] init];
     [fatLabel setText:@"FAT : "];
@@ -96,7 +97,7 @@
     [Fat setTextAlignment:NSTextAlignmentCenter];
     [self setTextFieldFont:Fat];
     [self.view addSubview:Fat];
-
+    
     
     carbLabel = [[UILabel alloc] init];
     [carbLabel setText:@"CARBOHYDRATES :"];
@@ -127,7 +128,7 @@
     [Protein setTextAlignment:NSTextAlignmentCenter];
     [self setTextFieldFont:Protein];
     [self.view addSubview:Protein];
-
+    
     
     addItem = [[UILabel alloc] init];
     [addItem setFrame:CGRectMake(self.view.frame.size.width / 4, 3 * self.view.frame.size.height / 4, self.view.frame.size.width / 2, self.view.frame.size.height / 12)];
@@ -150,8 +151,48 @@
 
 - (void) goBack
 {
-    AddFoodItemViewController *vc = [[AddFoodItemViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+        [SVProgressHUD show];
+        
+        NSString *post = [NSString stringWithFormat:@"name=%@&protein=%d&fat=%d&carb=%d", [FoodName text], [[Protein text] intValue], [[Fat text] intValue], [[Carbs text] intValue]];
+        NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+        NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/fooditem/"]];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:postData];
+        [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+        
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+             
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            
+            NSError *jsonError = nil;
+            NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+
+            if (jsonError) {
+                NSLog(@"Error parsing JSON: %@", jsonError);
+            }
+            NSLog(@"%@", dict);
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if ([[NSThread currentThread] isMainThread]){
+                    [SVProgressHUD dismiss];
+                    AddFoodItemViewController *vc = [[AddFoodItemViewController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                else{
+                    NSLog(@"Not in main thread--completion handler");
+                }
+            });
+        }];
+        [task resume];
+    }
 
 @end

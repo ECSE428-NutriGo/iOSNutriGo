@@ -9,6 +9,7 @@
 #import "NewMealViewController.h"
 #import "AddFoodItemViewController.h"
 #import "ManualEntryViewController.h"
+#import "MealViewController.h"
 @import SVProgressHUD;
 
 @interface NewMealViewController ()
@@ -19,23 +20,32 @@
 @property (nonatomic, retain) UILabel *addFoodItem;
 @property (nonatomic, retain) UILabel *nutritionInformation;
 @property (nonatomic, retain) UILabel *confirm;
+@property (nonatomic, retain) UITextField *search;
 
 @end
 
 @implementation NewMealViewController
 
-@synthesize cancel, manualEntry, mealItemsList, addFoodItem, nutritionInformation, confirm;
+@synthesize cancel, manualEntry, mealItemsList, addFoodItem, nutritionInformation, confirm, search, ids, foodItemTitles;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithRed:243.0/255.0 green:129.0/255.0 blue:147.0/255.0 alpha:1]];
+    if (self.ids == nil)
+    {
+        self.ids = [NSMutableArray array];
+    }
     
+    if (self.foodItemTitles == nil)
+    {
+        self.foodItemTitles = [NSMutableArray array];
+    }
     [self layout];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
-
+    
     
     [super viewDidAppear:animated];
 }
@@ -44,6 +54,19 @@
 {
     if (cancel == nil)
     {
+        CGFloat size = self.view.frame.size.width / 8;
+        CGFloat offset = self.view.frame.size.width / 2 / 5;
+        CGFloat yStart = 17 * self.view.frame.size.height / 20;
+        
+        yStart = self.view.frame.size.height / 5;
+        CGFloat height = self.view.frame.size.height / 8;
+        CGFloat width = 4 * self.view.frame.size.width / 5;
+        
+        search = [[UITextField alloc] init];
+        [search setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart, width, height / 2)];
+        [self setTextFieldBorder:search];
+        [self.view addSubview:search];
+        
         cancel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 10, self.view.frame.size.height / 15, self.view.frame.size.width / 4, self.view.frame.size.height / 20)];
         [cancel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
         [cancel setText:@"CANCEL"];
@@ -64,18 +87,32 @@
         [confirm addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popVC)]];
         [self.view addSubview:confirm];
         
-        CGFloat yStart = self.view.frame.size.height / 4;
+        yStart = self.view.frame.size.height / 4;
         CGFloat xLabelStart = self.view.frame.size.width / 10;
         CGFloat labelWidth = 4 * self.view.frame.size.width / 5;
         CGFloat labelHeight = self.view.frame.size.height / 6;
         CGFloat buttonHeight = self.view.frame.size.height / 12;
         CGFloat buttonWidth = self.view.frame.size.width / 2;
         CGFloat xButtonStart = self.view.frame.size.width / 4;
-        CGFloat offset = self.view.frame.size.height / 30;
+        offset = self.view.frame.size.height / 30;
         
         mealItemsList = [[UILabel alloc] initWithFrame:CGRectMake(xLabelStart, yStart, labelWidth, labelHeight)];
         [mealItemsList setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
-        [mealItemsList setText:@"MEAL ITEM 1, MEAL ITEM 2, MEAL ITEM 3, MEAL ITEM 4, MEAL ITEM 5, MEAL ITEM 6, MEAL ITEM 7, MEAL ITEM 8, MEAL ITEM 9"];
+        // [mealItemsList setText:@"MEAL ITEM 1, MEAL ITEM 2, MEAL ITEM 3, MEAL ITEM 4, MEAL ITEM 5, MEAL ITEM 6, MEAL ITEM 7, MEAL ITEM 8, MEAL ITEM 9"];
+        if (foodItemTitles != nil)
+        {
+            NSMutableString *string = [NSMutableString string];
+            for (int i = 0; i < [foodItemTitles count]; i++)
+            {
+                [string appendString:[foodItemTitles objectAtIndex:i]];
+                if (i != [foodItemTitles count] - 1)
+                {
+                    [string appendString:@", "];
+                }
+            }
+            [mealItemsList setText:string];
+        }
+        
         [mealItemsList setNumberOfLines:0];
         [mealItemsList setTextColor:[UIColor whiteColor]];
         [self.view addSubview:mealItemsList];
@@ -87,7 +124,7 @@
         [nutritionInformation setText:@"CALORIES:\nCARBS:\nPROTEIN:\nFAT:"];
         [nutritionInformation setNumberOfLines:4];
         [nutritionInformation setTextColor:[UIColor whiteColor]];
-        [self.view addSubview:nutritionInformation];
+        //   [self.view addSubview:nutritionInformation];
         
         yStart += 2 * offset + labelHeight;
         
@@ -117,12 +154,56 @@
 
 - (void) popVC
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD show];
+    
+    NSMutableString *post = [NSMutableString stringWithString:@"fooditems="];
+    [post appendString:[[ids valueForKey:@"description"] componentsJoinedByString:@", "]];
+    [post appendFormat:@"&name=%@", [search text]];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/meal/"]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"Error parsing JSON: %@", jsonError);
+        }
+        NSLog(@"%@", dict);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if ([[NSThread currentThread] isMainThread]){
+                [SVProgressHUD dismiss];
+                [self.navigationController pushViewController:[[MealViewController alloc] init] animated:YES];
+            }
+            else{
+                NSLog(@"Not in main thread--completion handler");
+            }
+        });
+    }];
+    [task resume];
 }
 
 - (void) addItem
 {
     AddFoodItemViewController *vc = [[AddFoodItemViewController alloc] init];
+    vc.ids = self.ids;
+    vc.foodItemTitles = self.foodItemTitles;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -130,6 +211,17 @@
 {
     ManualEntryViewController *vc = [[ManualEntryViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) setTextFieldBorder :(UITextField *)textField{
+    
+    CALayer *border = [CALayer layer];
+    CGFloat borderWidth = 4;
+    border.borderColor = [UIColor whiteColor].CGColor;
+    border.frame = CGRectMake(0, textField.frame.size.height - borderWidth, textField.frame.size.width, textField.frame.size.height);
+    border.borderWidth = borderWidth;
+    [textField.layer addSublayer:border];
+    textField.layer.masksToBounds = YES;
 }
 
 @end
