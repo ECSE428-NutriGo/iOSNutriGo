@@ -63,7 +63,7 @@
     
     
     Food = [[UILabel alloc] init];
-    [Food setText:@"FOOD"];
+    [Food setText:@"FOOD : "];
     [Food setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
     [Food setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart+80, width, height)];
     [Food setTextColor:[UIColor whiteColor]];
@@ -84,7 +84,7 @@
        [self.view addSubview:gramLabel];
     
     fatLabel = [[UILabel alloc] init];
-    [fatLabel setText:@"FAT"];
+    [fatLabel setText:@"FAT : "];
     [fatLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
     [fatLabel setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart+240, width, height)];
     [fatLabel setTextColor:[UIColor whiteColor]];
@@ -99,7 +99,7 @@
 
     
     carbLabel = [[UILabel alloc] init];
-    [carbLabel setText:@"CARBOHYDRATES"];
+    [carbLabel setText:@"CARBOHYDRATES :"];
     [carbLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
     [carbLabel setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart+320, width, height)];
     [carbLabel setTextColor:[UIColor whiteColor]];
@@ -115,7 +115,7 @@
     
     
     proteinLabel = [[UILabel alloc] init];
-    [proteinLabel setText:@"PROTEIN"];
+    [proteinLabel setText:@"PROTEIN : "];
     [proteinLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
     [proteinLabel setFrame:CGRectMake(self.view.frame.size.width / 2 - width / 2, yStart+400, width, height)];
     [proteinLabel setTextColor:[UIColor whiteColor]];
