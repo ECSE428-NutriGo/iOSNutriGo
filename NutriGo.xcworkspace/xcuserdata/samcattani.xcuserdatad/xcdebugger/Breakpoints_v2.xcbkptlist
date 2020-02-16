@@ -14,10 +14,10 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "@synthesize"
-            landmarkType = "24">
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -30,8 +30,8 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "-layout"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,9 +46,9 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "-inverseColor:"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "-selectSettings"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,8 +174,8 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-resetFrames"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,10 +190,42 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-resetFrames"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BF69082F-7A5E-42CE-A45F-53612C7166F2 - 776d46b9e7b95d57"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[HomeViewController resetFrames]_block_invoke"
+                  moduleName = "NutriGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samcattani/Documents/Winter2020/ECSE428/NutriGo/NutriGo/HomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "388">
+               </Location>
+               <Location
+                  uuid = "BF69082F-7A5E-42CE-A45F-53612C7166F2 - 8108cc4a30ada722"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[HomeViewController resetFrames]_block_invoke_2"
+                  moduleName = "NutriGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samcattani/Documents/Winter2020/ECSE428/NutriGo/NutriGo/HomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -206,9 +238,25 @@
             filePath = "NutriGo/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-resetFrames"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58709326-9609-4B42-B566-293BE660F90C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NutriGo/LoginViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "-goToHome"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

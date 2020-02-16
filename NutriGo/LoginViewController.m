@@ -108,53 +108,35 @@
 - (void) goToHome
 {
     [SVProgressHUD show];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    
+    NSInteger *anInt = 0;
+    NSString *post = [NSString stringWithFormat:@"username=%@&email=%@&password=%@", [user text], [user text], [pass text]];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/login/"]];
     [request setHTTPMethod:@"POST"];
-    
-    //[request addValue:[user text] forHTTPHeaderField:@"username"];
-    //[request addValue:[user text] forHTTPHeaderField:@"email"];
-   // [request addValue:[pass text] forHTTP:@"password"];
-
-//    NSMutableString *string = [NSMutableString string];
-//    [string appendString:@"{\"username\":"];
-//    [string appendString:[user text]];
-//    [string appendString:@",\"email\":"];
-//    [string appendString:[user text]];
-//    [string appendString:@",\"password\":"];
-//    [string appendString:[pass text]];
-//    [string appendString:@"}"];
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:[user text] forKey:@"username"];
-    [dictionary setObject:[user text] forKey:@"email"];
-    [dictionary setObject:[pass text] forKey:@"password"];
-    
-    NSError *error = [[NSError alloc] init];
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error];
-    
-    [request setHTTPBody:data];
-    
-    NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
+         
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSError *jsonError = nil;
-        NSArray* jsonUsers = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        
+        NSData *dataUTF8 = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dataUTF8 options:0 error:&jsonError];
+
         if (jsonError) {
-            NSLog(@"error is %@", [jsonError localizedDescription]);
-            return;
+            NSLog(@"Error parsing JSON: %@", jsonError);
         }
+        NSLog(@"%@", dict);
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             if ([[NSThread currentThread] isMainThread]){
                 [SVProgressHUD dismiss];
                 HomeViewController *vc = [[HomeViewController alloc] init];
@@ -164,11 +146,8 @@
                 NSLog(@"Not in main thread--completion handler");
             }
         });
-        
     }];
     [task resume];
-//    HomeViewController *vc = [[HomeViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) goToSignUp

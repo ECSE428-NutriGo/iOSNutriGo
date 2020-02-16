@@ -27,12 +27,14 @@
 @property (nonatomic, retain) UIView *protein;
 @property (nonatomic, retain) UILabel *today;
 @property (nonatomic, retain) NSArray *macros;
+@property (nonatomic) NSDictionary *result;
+@property (nonatomic) NSDictionary *goals;
 
 @end
 
 @implementation HomeViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros, result;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,6 +84,13 @@
         [settingsView setUserInteractionEnabled:YES];
         [settingsView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectSettings)]];
         [self.view addSubview:settingsView];
+        
+        yStart = self.view.frame.size.height / 8;
+        
+        today = [[UILabel alloc] init];
+        [today setFrame:CGRectMake(0, yStart, self.view.frame.size.width, self.view.frame.size.height / 7)];
+        [today setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:self.view.frame.size.height / 8]];
+        [self.view addSubview:today];
         
         
         CGFloat xStart = self.view.frame.size.width / 10;
