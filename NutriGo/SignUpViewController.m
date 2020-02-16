@@ -37,7 +37,7 @@
     CGFloat xStart = self.view.frame.size.width / 2 - width / 2;
     CGFloat yStart = self.view.frame.size.height / 2 - 2 * height - offset;
     
-    logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meal"]];
+    logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
     [logoView setFrame:CGRectMake(xStart, yStart, width, 2 * height)];
     [logoView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:logoView];
@@ -48,9 +48,11 @@
     yStart = self.view.frame.size.height / 2 - offset;
     height = self.view.frame.size.height / 20;
     
+    
     CGRect emailRect = CGRectMake(xStart, yStart, width, height);
     emailField = [[UITextField alloc] initWithFrame:emailRect];
     emailField.placeholder = @"email";
+    emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     CALayer *bottomLine = [CALayer layer];
     bottomLine.frame = CGRectMake(0.0f, emailRect.size.height, width, 1.0f);
     bottomLine.backgroundColor = [UIColor whiteColor].CGColor;
@@ -60,10 +62,11 @@
     [self.view addSubview:emailField];
     
     yStart = self.view.frame.size.height / 2;
-    
+
     CGRect pwdRect = CGRectMake(xStart, yStart, width, height);
     pwdField = [[UITextField alloc] initWithFrame:pwdRect];
     pwdField.placeholder = @"password";
+    pwdField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     bottomLine = [CALayer layer];
     bottomLine.frame = CGRectMake(0.0f, pwdRect.size.height, width, 1.0f);
     bottomLine.backgroundColor = [UIColor whiteColor].CGColor;
@@ -87,7 +90,37 @@
 }
 
 - (void) signUp {
+
+    NSString *post = [NSString stringWithFormat:@"username=%@&password1=%@&password2=%@&email=%@", emailField.text, pwdField.text, pwdField.text, emailField.text];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/registration/"]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
     
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+         
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError = nil;
+        NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+
+        if (!jsonResult) {
+            NSLog(@"Error parsing JSON: %@", jsonError);
+        } else {
+            for(NSDictionary *item in jsonResult) {
+                NSLog(@"Item: %@", item);
+            }
+        }
+        
+    }];
+    [task resume];
 }
 
 @end
