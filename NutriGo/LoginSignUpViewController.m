@@ -80,7 +80,7 @@
         [label setTextColor:[UIColor whiteColor]];
         [label setUserInteractionEnabled:YES];
         [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToHome)]];
-        [self.view addSubview:label];
+        //[self.view addSubview:label];
     }
 }
 

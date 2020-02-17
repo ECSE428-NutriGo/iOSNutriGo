@@ -140,6 +140,8 @@
             if ([[NSThread currentThread] isMainThread]){
                 [SVProgressHUD dismiss];
                 HomeViewController *vc = [[HomeViewController alloc] init];
+                [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
+                [[NSUserDefaults standardUserDefaults] synchronize];  
                 [self.navigationController pushViewController:vc animated:YES];
             }
             else{

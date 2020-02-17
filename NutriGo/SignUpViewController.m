@@ -154,6 +154,8 @@
                     return;
                 }
                 else if (dict[@"key"] != nil) {
+                    [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
+                    [[NSUserDefaults standardUserDefaults] synchronize]; 
                     [self goToHome];
                 }
             }

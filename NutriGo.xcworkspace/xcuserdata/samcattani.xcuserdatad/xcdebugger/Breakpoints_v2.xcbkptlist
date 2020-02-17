@@ -184,7 +184,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "58709326-9609-4B42-B566-293BE660F90C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NutriGo/LoginViewController.m"
@@ -402,6 +402,38 @@
             endingLineNumber = "186"
             landmarkName = "-goBack"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2297CBA0-3726-4837-BBCC-5C086F323EEE - f7a8c32152150bb0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[NewFoodItemViewController goBack]_block_invoke"
+                  moduleName = "NutriGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samcattani/Documents/Winter2020/ECSE428/NutriGo/NutriGo/NewFoodItemViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "186"
+                  endingLineNumber = "186"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "2297CBA0-3726-4837-BBCC-5C086F323EEE - da9ec26287a6c9c5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[NewFoodItemViewController goBack]_block_invoke_2"
+                  moduleName = "NutriGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samcattani/Documents/Winter2020/ECSE428/NutriGo/NutriGo/NewFoodItemViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -733,8 +765,8 @@
             filePath = "NutriGo/MealViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "-eatMeal:"
             landmarkType = "7">
          </BreakpointContent>
@@ -749,24 +781,8 @@
             filePath = "NutriGo/MealViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "-eatMeal:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "55E03B95-20A2-443C-8EC6-E434983F91B1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NutriGo/MealViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "-eatMeal:"
             landmarkType = "7">
          </BreakpointContent>
@@ -919,7 +935,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4172639E-F48A-4D3C-8C63-65008BD9CCFE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NutriGo/NewMealViewController.m"
@@ -935,7 +951,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E214F7B2-1002-4AB5-B7FB-7BF4D0EBA541"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NutriGo/NewMealViewController.m"
@@ -944,6 +960,38 @@
             startingLineNumber = "172"
             endingLineNumber = "172"
             landmarkName = "-popVC"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA8D3040-2783-4CEF-8CFE-5A4EE3F7DDA9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NutriGo/HomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "-resetFrames"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "52AF5212-F985-46B5-9393-0A0B4EBB6957"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NutriGo/HomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-resetFrames"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
