@@ -68,6 +68,7 @@
         [pass setFrame: CGRectMake(xStart, yStart, width, height)];
         [pass setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
         [pass setPlaceholder:(@"Password")];
+        [pass setSecureTextEntry:TRUE];
         [pass setBackgroundColor:[UIColor colorWithRed: 155.0/255.0 green:255.0/255.0 blue:170.0/255.0 alpha:0.7]];
         [pass setTextColor:[UIColor purpleColor]];
         [self.view addSubview:pass];
