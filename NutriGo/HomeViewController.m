@@ -30,6 +30,7 @@
 @property (nonatomic) NSDictionary *result;
 @property (nonatomic) NSDictionary *goals;
 
+
 @end
 
 @implementation HomeViewController
@@ -57,6 +58,7 @@
         CGFloat size = self.view.frame.size.width / 8;
         CGFloat offset = self.view.frame.size.width / 2 / 5;
         CGFloat yStart = 17 * self.view.frame.size.height / 20;
+        CGFloat spacing = self.view.frame.size.height / 50;
         
         graph = [UIImage imageNamed:@"graph"];
         graphImage = [[UIImageView alloc] initWithImage:[self inverseColor:graph]];
@@ -103,6 +105,16 @@
         CGFloat width = 4 * self.view.frame.size.width / 5;
         yStart = self.view.frame.size.height / 4;
         
+        yStart -= section;
+        
+        UILabel *calLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+        [calLabel setText:@"CALORIES"];
+        [calLabel setTextColor:[UIColor whiteColor]];
+        [calLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [self.view addSubview:calLabel];
+        
+        yStart += section;
+        
         UIImageView *line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
         [line setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
         [self.view addSubview:line];
@@ -111,60 +123,57 @@
         [calories setBackgroundColor:[UIColor colorWithRed:0/255.0 green:47.0/255.0 blue:51.0/255.0 alpha:1]];
         [self.view addSubview:calories];
         
-        yStart += 2 * section;
+        yStart += section;
+        
+        UILabel *fatLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+        [fatLabel setText:@"FAT"];
+        [fatLabel setTextColor:[UIColor whiteColor]];
+        [fatLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [self.view addSubview:fatLabel];
+        
+        yStart += section;
         
         UIImageView *line2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
         [line2 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
         [self.view addSubview:line2];
         
         fat = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
-        
-        UILabel *fatLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
-        NSString *fatStr = [NSString stringWithFormat:@"Fat %ld g", [[self.macros valueForKey:@"fat"] integerValue]];
-        [fatLabel setText: fatStr];
-        [fatLabel setTextColor:[UIColor whiteColor]];
-        [fatLabel setBackgroundColor:[UIColor clearColor]];
-        [fatLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
-        [fat addSubview:fatLabel];
-        
         [fat setBackgroundColor:[UIColor colorWithRed:0/255.0 green:87.0/255.0 blue:95.0/255.0 alpha:1]];
         [self.view addSubview:fat];
         
-        yStart += 2 * section;
+        yStart += section;
+        
+        UILabel *carbLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+        [carbLabel setText:@"CARBS"];
+        [carbLabel setTextColor:[UIColor whiteColor]];
+        [carbLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [self.view addSubview:carbLabel];
+        
+        yStart += section;
         
         UIImageView *line3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
         [line3 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
         [self.view addSubview:line3];
         
         carbs = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
-        
-        UILabel *carbLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
-        NSString *carbStr = [NSString stringWithFormat:@"Carbs %ld g", [[self.macros valueForKey:@"carb"] integerValue]];
-        [carbLabel setText: carbStr];
-        [carbLabel setTextColor:[UIColor whiteColor]];
-        [carbLabel setBackgroundColor:[UIColor clearColor]];
-        [carbLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
-        [carbs addSubview:carbLabel];
-        
         [carbs setBackgroundColor:[UIColor colorWithRed:0/255.0 green:115.0/255.0 blue:126.0/255.0 alpha:1]];
         [self.view addSubview:carbs];
         
-        yStart += 2 * section;
+        yStart += section;
+        
+        UILabel *proteinLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+        [proteinLabel setText:@"PROTEIN"];
+        [proteinLabel setTextColor:[UIColor whiteColor]];
+        [proteinLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [self.view addSubview:proteinLabel];
+        
+        yStart += section;
         
         UIImageView *line4 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line"]];
         [line4 setFrame:CGRectMake(xStart + width - 40, yStart, 40, section)];
         [self.view addSubview:line4];
         
         protein = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
-        
-        UILabel *proteinLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
-        NSString *proteinStr = [NSString stringWithFormat:@"Protein %ld g", [[self.macros valueForKey:@"protein"] integerValue]];
-        [proteinLabel setText: proteinStr];
-        [proteinLabel setTextColor:[UIColor whiteColor]];
-        [proteinLabel setBackgroundColor:[UIColor clearColor]];
-        [proteinLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
-        [protein addSubview:proteinLabel];
-        
         [protein setBackgroundColor:[UIColor colorWithRed:0/255.0 green:154.0/255.0 blue:170.0/255.0 alpha:1]];
         [self.view addSubview:protein];
     }
