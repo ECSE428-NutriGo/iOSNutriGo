@@ -138,18 +138,39 @@
         }
         NSLog(@"%@", dict);
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if ([[NSThread currentThread] isMainThread]){
+        if (![dict objectForKey:@"key"]) {
+            NSLog(@"Invalid credentials");
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                HomeViewController *vc = [[HomeViewController alloc] init];
-                [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
-                [[NSUserDefaults standardUserDefaults] synchronize];  
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            else{
-                NSLog(@"Not in main thread--completion handler");
-            }
-        });
+                UIAlertController * alert = [UIAlertController
+                alertControllerWithTitle:@"Invalid credentials!"
+                message:@"Unable to log in with provided credentials."
+                preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* okButton = [UIAlertAction
+                actionWithTitle:@"Ok"
+                style:UIAlertActionStyleDefault
+                handler:^(UIAlertAction * action) {
+                    //Handle no, thanks button
+                }];
+                
+                [alert addAction:okButton];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if ([[NSThread currentThread] isMainThread]){
+                    [SVProgressHUD dismiss];
+                    HomeViewController *vc = [[HomeViewController alloc] init];
+                    [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                else{
+                    NSLog(@"Not in main thread--completion handler");
+                }
+            });
+        }
     }];
     [task resume];
 }
