@@ -204,7 +204,7 @@
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                          [proteinNum text], @"protein_target",
                          [carbsNum text], @"carb_target",
-                         [fatNum text], @"fat_taret",
+                         [fatNum text], @"fat_target",
                          nil];
     NSError *error;
     postData = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
