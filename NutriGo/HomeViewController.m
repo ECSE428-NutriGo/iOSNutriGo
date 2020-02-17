@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self layout];
+//    [self layout];
     [self.view setBackgroundColor:[UIColor colorWithRed:121.0/255.0 green:193.0/255.0 blue:200.0/255.0 alpha:1]];
 }
 
@@ -46,6 +46,7 @@
 {
     [self resetFrames];
     [super viewWillAppear:animated];
+    [self layout];
 }
 
 - (void) layout
@@ -117,6 +118,15 @@
         [self.view addSubview:line2];
         
         fat = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        
+        UILabel *fatLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+        NSString *fatStr = [NSString stringWithFormat:@"Fat %ld g", [[self.macros valueForKey:@"fat"] integerValue]];
+        [fatLabel setText: fatStr];
+        [fatLabel setTextColor:[UIColor whiteColor]];
+        [fatLabel setBackgroundColor:[UIColor clearColor]];
+        [fatLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
+        [fat addSubview:fatLabel];
+        
         [fat setBackgroundColor:[UIColor colorWithRed:0/255.0 green:87.0/255.0 blue:95.0/255.0 alpha:1]];
         [self.view addSubview:fat];
         
@@ -127,6 +137,15 @@
         [self.view addSubview:line3];
         
         carbs = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        
+        UILabel *carbLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+        NSString *carbStr = [NSString stringWithFormat:@"Carbs %ld g", [[self.macros valueForKey:@"carb"] integerValue]];
+        [carbLabel setText: carbStr];
+        [carbLabel setTextColor:[UIColor whiteColor]];
+        [carbLabel setBackgroundColor:[UIColor clearColor]];
+        [carbLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
+        [carbs addSubview:carbLabel];
+        
         [carbs setBackgroundColor:[UIColor colorWithRed:0/255.0 green:115.0/255.0 blue:126.0/255.0 alpha:1]];
         [self.view addSubview:carbs];
         
@@ -137,6 +156,15 @@
         [self.view addSubview:line4];
         
         protein = [[UIView alloc] initWithFrame:CGRectMake(xStart, yStart, 0, section)];
+        
+        UILabel *proteinLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+        NSString *proteinStr = [NSString stringWithFormat:@"Protein %ld g", [[self.macros valueForKey:@"protein"] integerValue]];
+        [proteinLabel setText: proteinStr];
+        [proteinLabel setTextColor:[UIColor whiteColor]];
+        [proteinLabel setBackgroundColor:[UIColor clearColor]];
+        [proteinLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:fat.frame.size.height / 2]];
+        [protein addSubview:proteinLabel];
+        
         [protein setBackgroundColor:[UIColor colorWithRed:0/255.0 green:154.0/255.0 blue:170.0/255.0 alpha:1]];
         [self.view addSubview:protein];
     }
@@ -164,7 +192,11 @@
         NSError *jsonError = nil;
         NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
         
-        macros = jsonResult;
+        NSLog(@"Json result %@", jsonResult);
+        
+        self.macros = jsonResult;
+        
+        NSLog(@"macros Json result %@", self.macros);
         
         if (jsonError) {
             NSLog(@"error is %@", [jsonError localizedDescription]);
