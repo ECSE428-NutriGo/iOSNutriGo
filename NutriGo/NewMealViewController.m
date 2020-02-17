@@ -169,7 +169,7 @@
                          search.text, @"name",
                          nil];
     NSError *error;
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
+    postData = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/meal/"]];
