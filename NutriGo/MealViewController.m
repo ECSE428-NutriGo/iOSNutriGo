@@ -163,6 +163,15 @@
         
         yStart = 7;
     
+    if ([[result valueForKey:@"meals"] count] == 0) {
+        UILabel *noMealLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+        [noMealLabel setText: @"No Meals Exist"];
+        [noMealLabel setTextColor:[UIColor whiteColor]];
+        [noMealLabel setBackgroundColor:[UIColor clearColor]];
+        [noMealLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:25]];
+        [scrollView addSubview:noMealLabel];
+    }
+    
         for (int i = 0; i < [[result valueForKey:@"meals"] count]; i++)
         {
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, yStart, width, height)];
