@@ -35,14 +35,14 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:156.0/255.0 blue:99.0/255.0 alpha:1]];
     [SVProgressHUD show];
-    [self layout];
+//    [self layout];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
-
     [self loadValues];
     [super viewDidAppear:animated];
+    [self layout];
 }
 
 
@@ -192,16 +192,29 @@
 
 - (void) saveChanges
 {
-    NSString *post = [NSString stringWithFormat:@"username=%@&protein_target=%@&carb_target=%@&fat_target=%@", @"samantha.cattani@mail.mcgill.ca", [proteinNum text], [carbsNum text], [fatNum text]];
+//    NSString *post = [NSString stringWithFormat:@"username=%@&protein_target=%@&carb_target=%@&fat_target=%@", @"samantha.cattani@mail.mcgill.ca", [proteinNum text], [carbsNum text], [fatNum text]];
+//    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSMutableString *post = [NSMutableString stringWithString:@""];
+    
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSString *email = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"email"]];
+        
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                         [proteinNum text], @"protein_target",
+                         [carbsNum text], @"carb_target",
+                         [fatNum text], @"fat_taret",
+                         nil];
+    NSError *error;
+    postData = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
+    
+    NSLog(@"put user data %@", tmp);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
     [request setHTTPMethod:@"PUT"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
     NSString *string = [NSString stringWithFormat:@"Token %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]];
     
@@ -220,7 +233,7 @@
         if (jsonError) {
             NSLog(@"Error parsing JSON: %@", jsonError);
         }
-        NSLog(@"%@", dict);
+        NSLog(@"response %@", dict);
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ([[NSThread currentThread] isMainThread]){
@@ -250,6 +263,7 @@
 
 - (void) loadValues
 {
+    NSLog(@"LOAD VALUES");
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/user/"]];
@@ -266,6 +280,8 @@
         
         NSError *jsonError = nil;
         NSArray* jsonResult = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        NSLog(@"user result %@", jsonResult);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([[NSThread currentThread] isMainThread]){
