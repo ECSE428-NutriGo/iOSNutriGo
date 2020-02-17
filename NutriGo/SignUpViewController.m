@@ -155,6 +155,7 @@
                     return;
                 }
                 else if (dict[@"key"] != nil) {
+                    [[NSUserDefaults standardUserDefaults]setObject:[self.emailField text] forKey:@"email"];
                     [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
                     [[NSUserDefaults standardUserDefaults] synchronize]; 
                     [self goToHome];
