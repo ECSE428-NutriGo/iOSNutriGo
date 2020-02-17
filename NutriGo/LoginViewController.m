@@ -55,6 +55,7 @@
         yStart += height + offset/2;
         
         user = [[UITextField alloc] init];
+        user.autocapitalizationType = UITextAutocapitalizationTypeNone;
         [user setFrame: CGRectMake(xStart, yStart, width, height)];
         [user setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
         [user setPlaceholder:(@"Username")];
