@@ -143,14 +143,14 @@
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
                 UIAlertController * alert = [UIAlertController
-                alertControllerWithTitle:@"Invalid credentials!"
-                message:@"Unable to log in with provided credentials."
-                preferredStyle:UIAlertControllerStyleAlert];
+                                             alertControllerWithTitle:@"Invalid credentials!"
+                                             message:@"Unable to log in with provided credentials."
+                                             preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction* okButton = [UIAlertAction
-                actionWithTitle:@"Ok"
-                style:UIAlertActionStyleDefault
-                handler:^(UIAlertAction * action) {
+                                           actionWithTitle:@"Ok"
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction * action) {
                     //Handle no, thanks button
                 }];
                 
