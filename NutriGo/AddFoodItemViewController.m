@@ -49,7 +49,9 @@
     [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/fooditem/"]];
     [request setHTTPMethod:@"GET"];
     
-    [request addValue:@"Token 3d505b29e14e580add1226ee474022210d9a9dd9" forHTTPHeaderField:@"Authorization"];
+    NSString *string = [NSString stringWithFormat:@"Token %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]];
+    
+    [request addValue:string forHTTPHeaderField:@"Authorization"];
     
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
