@@ -183,16 +183,36 @@
         }
         NSLog(@"%@", dict);
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if ([[NSThread currentThread] isMainThread]){
+        if ([dict objectForKey:@"message"]) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                MealViewController *vc = [[MealViewController alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            else{
-                NSLog(@"Not in main thread--completion handler");
-            }
-        });
+                UIAlertController * alert = [UIAlertController
+                                             alertControllerWithTitle:@"Failed to add Meal"
+                                             message:dict[@"message"]
+                                             preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* okButton = [UIAlertAction
+                                           actionWithTitle:@"Ok"
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction * action) {
+                    //Handle no, thanks button
+                }];
+                
+                [alert addAction:okButton];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if ([[NSThread currentThread] isMainThread]){
+                    [SVProgressHUD dismiss];
+                    MealViewController *vc = [[MealViewController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                else{
+                    NSLog(@"Not in main thread--completion handler");
+                }
+            });
+        }
     }];
     [task resume];
 }
