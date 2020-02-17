@@ -26,16 +26,19 @@
 @property (nonatomic, retain) UIView *carbs;
 @property (nonatomic, retain) UIView *protein;
 @property (nonatomic, retain) UILabel *today;
-@property (nonatomic, retain) NSArray *macros;
+@property (nonatomic) NSDictionary *macros;
 @property (nonatomic) NSDictionary *result;
 @property (nonatomic) NSDictionary *goals;
-
+@property (nonatomic, retain) UILabel *calLabel;
+@property (nonatomic, retain) UILabel *proteinLabel;
+@property (nonatomic, retain) UILabel *fatLabel;
+@property (nonatomic, retain) UILabel *carbLabel;
 
 @end
 
 @implementation HomeViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros, result, goals;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, calories, fat, carbs, protein, today, macros, result, goals, calLabel, proteinLabel, fatLabel, carbLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -107,8 +110,8 @@
         
         yStart -= section;
         
-        UILabel *calLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
-        [calLabel setText:@"CALORIES"];
+        calLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+        //[calLabel setText:@"CALORIES"];
         [calLabel setTextColor:[UIColor whiteColor]];
         [calLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
         [self.view addSubview:calLabel];
@@ -125,8 +128,8 @@
         
         yStart += section;
         
-        UILabel *fatLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
-        [fatLabel setText:@"FAT"];
+        fatLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+      //  [fatLabel setText:@"FAT"];
         [fatLabel setTextColor:[UIColor whiteColor]];
         [fatLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
         [self.view addSubview:fatLabel];
@@ -143,8 +146,8 @@
         
         yStart += section;
         
-        UILabel *carbLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
-        [carbLabel setText:@"CARBS"];
+        carbLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+       // [carbLabel setText:[NSString stringWithFormat:@"CARBS, %@ G", [macros objectForKey:@"carb"]]];
         [carbLabel setTextColor:[UIColor whiteColor]];
         [carbLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
         [self.view addSubview:carbLabel];
@@ -161,8 +164,8 @@
         
         yStart += section;
         
-        UILabel *proteinLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
-        [proteinLabel setText:@"PROTEIN"];
+        proteinLabel = [[UILabel alloc] initWithFrame:CGRectMake(xStart, yStart+ spacing, width, section)];
+       // [proteinLabel setText:[NSString stringWithFormat:@"PROTEIN, %@ G", [macros objectForKey:@"protein"]]];
         [proteinLabel setTextColor:[UIColor whiteColor]];
         [proteinLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
         [self.view addSubview:proteinLabel];
@@ -292,9 +295,17 @@
     CGFloat carbsVal = ((CGFloat) [[self.macros valueForKey:@"carb"] integerValue]);
     CGFloat fatVal = (CGFloat) [[self.macros valueForKey:@"fat"] integerValue];
     CGFloat proteinVal = (CGFloat) [[self.macros valueForKey:@"protein"] integerValue];
-    CGFloat calVal = (4 * carbsVal + 4 * proteinVal + 9 * fatVal) / 2000.0;
+    CGFloat calVal = (4 * carbsVal + 4 * proteinVal + 9 * fatVal);
     
-    [calories setFrame:CGRectMake(xStart, yStart, calVal * width, section)];
+    
+    if (!([[goals valueForKey:@"fat_target"] integerValue] == 0) && !([[goals valueForKey:@"carb_target"] integerValue] == 0) && !([[goals valueForKey:@"protein_target"] integerValue] == 0))
+    {
+        [calories setFrame:CGRectMake(xStart, yStart, (calVal / ((CGFloat) ([[goals valueForKey:@"fat_target"] integerValue]) * 9 + [[goals valueForKey:@"carb_target"] integerValue] * 4 + [[goals valueForKey:@"protein_target"] integerValue] * 4))* width, section)];
+    }
+    else
+    {
+        [calories setFrame:CGRectMake(xStart, yStart, (calVal / 2000.0) * width, section)];
+    }
     
     yStart += 2 * section;
     
@@ -328,6 +339,11 @@
     {
         [protein setFrame:CGRectMake(xStart, yStart, (proteinVal / ((CGFloat) [[goals valueForKey:@"protein_target"] integerValue])) * width, section)];
     }
+    
+    [proteinLabel setText:[NSString stringWithFormat:@"PROTEIN, %@ G", [macros objectForKey:@"protein"]]];
+    [fatLabel setText:[NSString stringWithFormat:@"FAT, %@ G", [macros objectForKey:@"fat"]]];
+    [carbLabel setText:[NSString stringWithFormat:@"CARBS, %@ G", [macros objectForKey:@"carb"]]];
+    [calLabel setText:[NSString stringWithFormat:@"CALORIES, %d CAL", (int) (4 * carbsVal + 4 * proteinVal + 9 * fatVal)]];
 }
 
 @end
