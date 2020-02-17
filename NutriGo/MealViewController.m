@@ -288,7 +288,7 @@
            dispatch_sync(dispatch_get_main_queue(), ^{
                if ([[NSThread currentThread] isMainThread]){
                    [SVProgressHUD dismiss];
-                   ProfileViewController *vc = [[ProfileViewController alloc] init];
+                   HomeViewController *vc = [[HomeViewController alloc] init];
                    [self.navigationController pushViewController:vc animated:YES];
                }
                else{

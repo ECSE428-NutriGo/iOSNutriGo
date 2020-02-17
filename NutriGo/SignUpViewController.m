@@ -138,19 +138,19 @@
                 [SVProgressHUD dismiss];
                 if (dict[@"email"] != nil) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Error"
-                                                                        message:dict[@"email"][0]
-                                                                        delegate:self
-                                                                        cancelButtonTitle:@"Dismiss"
-                                                                        otherButtonTitles:nil];
+                        message:dict[@"email"][0]
+                        delegate:self
+                        cancelButtonTitle:@"Dismiss"
+                        otherButtonTitles:nil];
                     [alert show];
                     return;
                 }
                 else if (dict[@"password1"] != nil) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Weak Password"
-                                                                        message:dict[@"password1"][0]
-                                                                        delegate:self
-                                                                        cancelButtonTitle:@"Dismiss"
-                                                                        otherButtonTitles:nil];
+                        message:dict[@"password1"][0]
+                        delegate:self
+                        cancelButtonTitle:@"Dismiss"
+                        otherButtonTitles:nil];
                     [alert show];
                     return;
                 }
