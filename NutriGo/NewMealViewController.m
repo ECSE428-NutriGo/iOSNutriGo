@@ -159,6 +159,7 @@
     NSMutableString *post = [NSMutableString stringWithString:@"fooditems="];
     [post appendString:[ids componentsJoinedByString:@", "]];
     [post appendFormat:@"&name=%@", [search text]];
+    
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
     NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];

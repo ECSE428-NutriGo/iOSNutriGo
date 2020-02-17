@@ -68,6 +68,7 @@
     CGRect pwdRect = CGRectMake(xStart, yStart, width, height);
     pwdField = [[UITextField alloc] initWithFrame:pwdRect];
     pwdField.placeholder = @"password";
+    [pwdField setSecureTextEntry:TRUE];
     pwdField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     bottomLine = [CALayer layer];
     bottomLine.frame = CGRectMake(0.0f, pwdRect.size.height, width, 1.0f);
