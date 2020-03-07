@@ -288,9 +288,9 @@
                 NSInteger calories = [[jsonResult valueForKey:@"protein_target"] integerValue] * 4 + [[jsonResult valueForKey:@"carb_target"] integerValue] * 4 + [[jsonResult valueForKey:@"fat_target"] integerValue] * 9;
                 NSString * caloriesNumVal = [NSString stringWithFormat: @"%ld", (long) calories];
                 [caloriesNum setText:caloriesNumVal];
-                [fatNum setText:[jsonResult valueForKey:@"fat_target"]];
-                [carbsNum setText:[jsonResult valueForKey:@"carb_target"]];
-                [proteinNum setText:[jsonResult valueForKey:@"protein_target"]];
+                [fatNum setText:[[jsonResult valueForKey:@"fat_target"] stringValue]];
+                [carbsNum setText:[[jsonResult valueForKey:@"carb_target"] stringValue]];
+                [proteinNum setText:[[jsonResult valueForKey:@"protein_target"] stringValue]];
                 [SVProgressHUD dismiss];
             }
             else{

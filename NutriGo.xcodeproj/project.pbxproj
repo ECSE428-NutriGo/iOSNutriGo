@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6A6841E923F5CAD100BBAD42 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6841E823F5CAD100BBAD42 /* EditProfileViewController.m */; };
+		CD0DFEA02410080D009F1214 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFE9F2410080D009F1214 /* SettingsViewController.m */; };
+		CD0DFEA3241411D1009F1214 /* EditProfileAttriutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */; };
+		CD0DFEA6241411E1009F1214 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */; };
 		CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BD823E8B14E00B5C927 /* AppDelegate.m */; };
 		CD235BE423E8B15100B5C927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE323E8B15100B5C927 /* Assets.xcassets */; };
 		CD235BE723E8B15100B5C927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */; };
@@ -32,6 +35,12 @@
 		76001FD06DFEF008FED558ED /* Pods-NutriGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.release.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.release.xcconfig"; sourceTree = "<group>"; };
 		8B0EFAAE9686AE3778793DA8 /* Pods_NutriGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NutriGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8F4840032C509B6E65B790D /* Pods-NutriGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NutriGo.debug.xcconfig"; path = "Target Support Files/Pods-NutriGo/Pods-NutriGo.debug.xcconfig"; sourceTree = "<group>"; };
+		CD0DFE9E2410080D009F1214 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		CD0DFE9F2410080D009F1214 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		CD0DFEA1241411D1009F1214 /* EditProfileAttriutesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileAttriutesViewController.h; sourceTree = "<group>"; };
+		CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileAttriutesViewController.m; sourceTree = "<group>"; };
+		CD0DFEA4241411E1009F1214 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		CD235BD423E8B14E00B5C927 /* NutriGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutriGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD235BD723E8B14E00B5C927 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD235BD823E8B14E00B5C927 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -141,6 +150,12 @@
 				CD5B7E1123F432D600EE53F8 /* AddFoodItemViewController.m */,
 				CD5B7E1323F4347400EE53F8 /* NewFoodItemViewController.h */,
 				CD5B7E1423F4347400EE53F8 /* NewFoodItemViewController.m */,
+				CD0DFE9E2410080D009F1214 /* SettingsViewController.h */,
+				CD0DFE9F2410080D009F1214 /* SettingsViewController.m */,
+				CD0DFEA1241411D1009F1214 /* EditProfileAttriutesViewController.h */,
+				CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */,
+				CD0DFEA4241411E1009F1214 /* ChangePasswordViewController.h */,
+				CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */,
 			);
 			path = NutriGo;
 			sourceTree = "<group>";
@@ -268,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD5B7E0623F41C5900EE53F8 /* MealViewController.m in Sources */,
+				CD0DFEA6241411E1009F1214 /* ChangePasswordViewController.m in Sources */,
 				CD5B7E0C23F4279400EE53F8 /* ProfileViewController.m in Sources */,
 				CD5B7DFD23F4148C00EE53F8 /* LoginSignUpViewController.m in Sources */,
 				CD5B7E0F23F42E0700EE53F8 /* ManualEntryViewController.m in Sources */,
@@ -279,7 +295,9 @@
 				CD235BEA23E8B15100B5C927 /* main.m in Sources */,
 				CD235BF223E8B41600B5C927 /* HomeViewController.m in Sources */,
 				CD5B7E1523F4347400EE53F8 /* NewFoodItemViewController.m in Sources */,
+				CD0DFEA3241411D1009F1214 /* EditProfileAttriutesViewController.m in Sources */,
 				CD5B7E0023F41A2100EE53F8 /* LoginViewController.m in Sources */,
+				CD0DFEA02410080D009F1214 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

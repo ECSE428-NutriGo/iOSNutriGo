@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "NewMealViewController.h"
 #import "ProfileViewController.h"
+#import "SettingsViewController.h"
 @import SVProgressHUD;
 
 @interface MealViewController ()
@@ -253,6 +254,8 @@
 {
     [settingsView setImage:[self inverseColor:settingsView.image]];
     [mealView setImage:[UIImage imageNamed:@"meal"]];
+    SettingsViewController *vc = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction) eatMeal: (UITapGestureRecognizer *) sender

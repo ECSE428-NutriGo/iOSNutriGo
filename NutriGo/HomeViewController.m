@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "MealViewController.h"
 #import "ProfileViewController.h"
+#import "SettingsViewController.h"
 @import SVProgressHUD;
 
 @interface HomeViewController ()
@@ -274,6 +275,8 @@
 {
     [settingsView setImage:[self inverseColor:settingsView.image]];
     [graphImage setImage:[UIImage imageNamed:@"graph"]];
+    SettingsViewController *vc = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (UIImage *)inverseColor:(UIImage *)image {

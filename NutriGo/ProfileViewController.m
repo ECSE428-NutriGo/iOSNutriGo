@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "MealViewController.h"
 #import "EditProfileViewController.h"
+#import "SettingsViewController.h"
 @import SVProgressHUD;
 
 @interface ProfileViewController ()
@@ -201,13 +202,13 @@
         [editGoals setBackgroundColor:[UIColor colorWithRed:160.0/255.0 green:82.0/255.0 blue:45.0/255.0 alpha:1]];
         [editGoals setTextColor:[UIColor whiteColor]];
         [editGoals setUserInteractionEnabled:YES];
-        [editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editGoals)]];
+        [editGoals addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(redoGoals)]];
         [self.view addSubview:editGoals];
         
     }
 }
 
-- (void) editGoals
+- (void) redoGoals
 {
     EditProfileViewController *vc = [[EditProfileViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -233,6 +234,8 @@
 {
     [settingsView setImage:[self inverseColor:settingsView.image]];
     [profileView setImage:[UIImage imageNamed:@"profile"]];
+    SettingsViewController *vc = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (UIImage *)inverseColor:(UIImage *)image {
@@ -279,9 +282,9 @@
                 NSInteger calories = [[jsonResult valueForKey:@"protein_target"] integerValue] * 4 + [[jsonResult valueForKey:@"carb_target"] integerValue] * 4 + [[jsonResult valueForKey:@"fat_target"] integerValue] * 9;
                 caloriesNumVal = [NSString stringWithFormat: @"%ld", (long) calories];
                 [caloriesNum setText:[caloriesNumVal stringByAppendingString:@" CAL"]];
-                [fatNum setText:[[jsonResult valueForKey:@"fat_target"] stringByAppendingString:@" G"]];
-                [carbsNum setText:[[jsonResult valueForKey:@"carb_target"] stringByAppendingString:@" G"]];
-                [proteinNum setText:[[jsonResult valueForKey:@"protein_target"] stringByAppendingString:@" G"]];
+                [fatNum setText:[[[jsonResult valueForKey:@"fat_target"] stringValue] stringByAppendingString:@" G"]];
+                [carbsNum setText:[[[jsonResult valueForKey:@"carb_target"] stringValue] stringByAppendingString:@" G"]];
+                [proteinNum setText:[[[jsonResult valueForKey:@"protein_target"] stringValue] stringByAppendingString:@" G"]];
                 [SVProgressHUD dismiss];
             }
             else{
