@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "HomeViewController.h"
+#import "LoginViewController.h"
 @import SVProgressHUD;
 
 @interface SignUpViewController ()
@@ -18,12 +19,13 @@
 @property (nonatomic, retain) UITextField *pwdField;
 @property (nonatomic, retain) UIView *pwdView;
 @property (nonatomic, retain) UILabel *signIn;
+@property (nonatomic, retain) UILabel *logIn;
 
 @end
 
 @implementation SignUpViewController
 
-@synthesize logoView, emailField, emailView, pwdField, pwdView, signIn;
+@synthesize logoView, emailField, emailView, pwdField, pwdView, signIn, logIn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,6 +92,22 @@
     [signIn setUserInteractionEnabled:YES];
     [signIn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUp)]];
     [self.view addSubview:signIn];
+
+    yStart += offset;
+    width = self.view.frame.size.width / 2;
+    xStart = self.view.frame.size.width / 2 - width / 2;
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:@"I already have an account."];
+    [attributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[attributeString length]}];
+    logIn = [[UILabel alloc] init];
+    [logIn setFrame:CGRectMake(xStart, yStart, width, height)];
+    logIn.attributedText = attributeString;
+    [logIn setTextColor:[UIColor whiteColor]];
+    [logIn setUserInteractionEnabled:YES];
+    [logIn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLogin)]];
+    [self.view addSubview:logIn];
+    
 }
 
 - (void) signUp {
@@ -171,6 +189,11 @@
 
 - (void) goToHome {
     HomeViewController *vc = [[HomeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) goToLogin {
+    LoginViewController *vc = [[LoginViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

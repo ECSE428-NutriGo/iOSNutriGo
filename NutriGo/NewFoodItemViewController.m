@@ -154,7 +154,29 @@
         [SVProgressHUD show];
         
         NSString *post = [NSString stringWithFormat:@"name=%@&protein=%d&fat=%d&carb=%d", [FoodName text], [[Protein text] intValue], [[Fat text] intValue], [[Carbs text] intValue]];
-        NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+        NSData *postData = [@"" dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+        NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                             [FoodName text], @"name",
+                             nil];
+    
+    if ([[Protein text] length] > 0) {
+        [tmp setObject:[Protein text]forKey:@"protein"];
+    }
+    
+    if ([[Carbs text] length] > 0) {
+        [tmp setObject:[Carbs text] forKey:@"carb"];
+    }
+    
+    if ([[Fat text] length] > 0) {
+        [tmp setObject:[Fat text] forKey:@"fat"];
+    }
+        
+    
+        NSError *error;
+        postData = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
+        
+        NSLog(@"put user data %@", tmp);
 
         NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
 
@@ -162,7 +184,7 @@
         [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/nutri/fooditem/"]];
         [request setHTTPMethod:@"POST"];
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:postData];
         NSString *string = [NSString stringWithFormat:@"Token %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]];
         
