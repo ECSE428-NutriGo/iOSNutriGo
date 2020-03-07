@@ -17,12 +17,13 @@
 @property (nonatomic, retain) UILabel *signIn;
 @property (nonatomic, retain) UIImageView *logoView;
 @property (nonatomic, retain) UILabel *titleView;
+@property (nonatomic, retain) UILabel *devMode;
 
 @end
 
 @implementation LoginSignUpViewController
 
-@synthesize login, signIn, logoView, titleView;
+@synthesize login, signIn, logoView, titleView, devMode;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +35,16 @@
 {
     if (login == nil)
     {
+        devMode = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 10, self.view.frame.size.height / 15, self.view.frame.size.width / 4, self.view.frame.size.height / 20)];
+        [devMode setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:18]];
+        [devMode setText:@"Development"];
+        [devMode setTextAlignment:NSTextAlignmentCenter];
+        [devMode setBackgroundColor:[UIColor colorWithRed:178.0/255.0 green:88.0/255.0 blue:103.0/255.0 alpha:1]];
+        [devMode setTextColor:[UIColor whiteColor]];
+        [devMode setUserInteractionEnabled:YES];
+        [devMode addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToHome)]];
+        [self.view addSubview:devMode];
+        
         CGFloat width = self.view.frame.size.width / 2;
         CGFloat height = self.view.frame.size.height / 12;
         CGFloat offset = self.view.frame.size.height / 6;
