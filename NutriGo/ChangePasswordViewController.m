@@ -124,7 +124,7 @@
     
     if (neWPassword.text.length == 0 || oldPassword.text.length == 0 || retypeNewPassword.text.length == 0 ) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Empty Field"
-                                                            message:@"Please fill all required feilds"
+                                                            message:@"Please fill all required fields"
                                                             delegate:self
                                                             cancelButtonTitle:@"Dismiss"
                                                             otherButtonTitles:nil];
