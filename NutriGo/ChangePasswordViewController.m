@@ -134,13 +134,13 @@
     
     [SVProgressHUD show];
     
-    NSString *post = [NSString stringWithFormat:@"password=%@&password1=%@&password2=%@", neWPassword.text, oldPassword.text, retypeNewPassword.text];
+    NSString *post = [NSString stringWithFormat:@"old_password=%@&new_password1=%@&new_password2=%@", neWPassword.text, oldPassword.text, retypeNewPassword.text];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", [postData length]];
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/changepassword/"]];
+    [request setURL:[NSURL URLWithString:@"https://nutrigo-staging.herokuapp.com/rest-auth/password/change/"]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -164,7 +164,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ([[NSThread currentThread] isMainThread]){
                 [SVProgressHUD dismiss];
-                if (dict[@"password"] != nil) {
+                if (dict[@"old_password"] != nil) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong Password"
                         message:dict[@"password"][0]
                         delegate:self
@@ -173,7 +173,7 @@
                     [alert show];
                     return;
                 }
-                else if (dict[@"password1"] != nil) {
+                else if (dict[@"new_password1"] != nil) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Weak Password"
                         message:dict[@"password1"][0]
                         delegate:self
@@ -182,10 +182,7 @@
                     [alert show];
                     return;
                 }
-                else if (dict[@"key"] != nil) {
-                    [[NSUserDefaults standardUserDefaults]setObject:[self.neWPassword text] forKey:@"password"];
-                    [[NSUserDefaults standardUserDefaults]setObject:[dict objectForKey:@"key"] forKey:@"token"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
+                else {
                     [self popVC];
                 }
             }
