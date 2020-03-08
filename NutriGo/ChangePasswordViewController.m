@@ -159,40 +159,40 @@
         if (jsonError) {
             NSLog(@"Error parsing JSON: %@", jsonError);
         }
-        NSLog(@"%@", dict);
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if ([[NSThread currentThread] isMainThread]){
-                [SVProgressHUD dismiss];
-                if (dict[@"old_password"] != nil) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong Password"
-                        message:dict[@"password"][0]
-                        delegate:self
-                        cancelButtonTitle:@"Dismiss"
-                        otherButtonTitles:nil];
-                    [alert show];
-                    return;
-                }
-                else if (dict[@"new_password1"] != nil) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Weak Password"
-                        message:dict[@"password1"][0]
-                        delegate:self
-                        cancelButtonTitle:@"Dismiss"
-                        otherButtonTitles:nil];
-                    [alert show];
-                    return;
-                }
-                else {
-                    [self popVC];
-                }
+             if (![dict objectForKey:@"key"]) {
+                  NSLog(@"Invalid credentials");
+                  dispatch_sync(dispatch_get_main_queue(), ^{
+                      [SVProgressHUD dismiss];
+                      UIAlertController * alert = [UIAlertController
+                                                   alertControllerWithTitle:@"Invalid credentials!"
+                                                   message:@"Unable to change password."
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+                      
+                      UIAlertAction* okButton = [UIAlertAction
+                                                 actionWithTitle:@"Ok"
+                                                 style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+
+                      }];
+                      
+                      [alert addAction:okButton];
+                      [self presentViewController:alert animated:YES completion:nil];
+                  });
+              } else {
+                  dispatch_sync(dispatch_get_main_queue(), ^{
+                  if ([[NSThread currentThread] isMainThread]){
+                      [SVProgressHUD dismiss];
+                      [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+                      }
+           else{
+                        NSLog(@"Not in main thread--completion handler");
+                    }
+                });
             }
-            else{
-                NSLog(@"Not in main thread--completion handler");
-            }
-        });
-    }];
-    [task resume];
-}
+        }];
+        [task resume];
+    }
+
 
 - (void) setTextFieldFont :(UITextField *)textField{
     textField.font = [UIFont fontWithName:@"SourceCodePro-Black" size:20];
