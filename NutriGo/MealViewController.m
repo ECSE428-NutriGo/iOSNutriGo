@@ -27,6 +27,10 @@
 @property (nonatomic, retain) UILabel *addMeal;
 @property (nonatomic) NSDictionary *result;
 
+//my additions
+//@property (nonatomic, retain) UILabel *delMeal;
+//end of my additions
+
 @end
 
 @implementation MealViewController
@@ -174,6 +178,8 @@
     
         for (int i = 0; i < [[result valueForKey:@"meals"] count]; i++)
         {
+            
+            //KYLE SOMEWHERE IN HERE YOU NEED TO INSERT GARBAGE ICON, THEN LINK IT WITH A FUNCTION SO THAT IT REMOVES THE MEAL FROM THE DATA BASE
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, yStart, width, height)];
             yStart += offset + height;
             [view setBackgroundColor:[UIColor colorWithRed:178.0/255.0 green:88.0/255.0 blue:103.0/255.0 alpha:1]];
@@ -186,6 +192,17 @@
             [title setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
             [title setFrame:CGRectMake(10, 5, view.frame.size.width - 10, view.frame.size.height / 2)];
             [view addSubview:title];
+            
+            //my additions- Kyle
+            
+            UILabel *delMeal = [[UILabel alloc] init];
+            [delMeal setTextColor:[UIColor whiteColor]];
+            [delMeal setText:@"Delete?"];
+            [delMeal setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:12]];
+            [delMeal setFrame:CGRectMake(200, 5, view.frame.size.width - 10, view.frame.size.height / 2)];
+            [view addSubview:delMeal];
+
+            //end of my additions - Kyle
             
             UILabel *nutritionInfo = [[UILabel alloc] init];
             NSString *protein = [[[result valueForKey:@"meals"] objectAtIndex:i] valueForKey:@"protein"];
@@ -306,6 +323,10 @@
            });
        }];
        [task resume];
+    
+}
+
+- (void) deleteMeal {
     
 }
 
