@@ -11,6 +11,7 @@
 		CD0DFEA02410080D009F1214 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFE9F2410080D009F1214 /* SettingsViewController.m */; };
 		CD0DFEA3241411D1009F1214 /* EditProfileAttriutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */; };
 		CD0DFEA6241411E1009F1214 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */; };
+		CD0DFEA924147F0A009F1214 /* RemoveFoodItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0DFEA824147F0A009F1214 /* RemoveFoodItemViewController.m */; };
 		CD235BD923E8B14E00B5C927 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD235BD823E8B14E00B5C927 /* AppDelegate.m */; };
 		CD235BE423E8B15100B5C927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE323E8B15100B5C927 /* Assets.xcassets */; };
 		CD235BE723E8B15100B5C927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD235BE523E8B15100B5C927 /* LaunchScreen.storyboard */; };
@@ -41,6 +42,8 @@
 		CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileAttriutesViewController.m; sourceTree = "<group>"; };
 		CD0DFEA4241411E1009F1214 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		CD0DFEA724147F0A009F1214 /* RemoveFoodItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoveFoodItemViewController.h; sourceTree = "<group>"; };
+		CD0DFEA824147F0A009F1214 /* RemoveFoodItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoveFoodItemViewController.m; sourceTree = "<group>"; };
 		CD235BD423E8B14E00B5C927 /* NutriGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutriGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD235BD723E8B14E00B5C927 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD235BD823E8B14E00B5C927 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				CD0DFEA2241411D1009F1214 /* EditProfileAttriutesViewController.m */,
 				CD0DFEA4241411E1009F1214 /* ChangePasswordViewController.h */,
 				CD0DFEA5241411E1009F1214 /* ChangePasswordViewController.m */,
+				CD0DFEA724147F0A009F1214 /* RemoveFoodItemViewController.h */,
+				CD0DFEA824147F0A009F1214 /* RemoveFoodItemViewController.m */,
 			);
 			path = NutriGo;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				CD5B7E0323F41A3200EE53F8 /* SignUpViewController.m in Sources */,
 				CD5B7E1223F432D700EE53F8 /* AddFoodItemViewController.m in Sources */,
 				6A6841E923F5CAD100BBAD42 /* EditProfileViewController.m in Sources */,
+				CD0DFEA924147F0A009F1214 /* RemoveFoodItemViewController.m in Sources */,
 				CD235BEA23E8B15100B5C927 /* main.m in Sources */,
 				CD235BF223E8B41600B5C927 /* HomeViewController.m in Sources */,
 				CD5B7E1523F4347400EE53F8 /* NewFoodItemViewController.m in Sources */,

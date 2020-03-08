@@ -12,6 +12,7 @@
 #import "MealViewController.h"
 #import "EditProfileAttriutesViewController.h"
 #import "ChangePasswordViewController.h"
+#import "RemoveFoodItemViewController.h"
 @import SVProgressHUD;
 
 @interface SettingsViewController ()
@@ -26,12 +27,13 @@
 @property (nonatomic, retain) UIImageView *settingsView;
 @property (nonatomic, retain) UILabel *editInfo;
 @property (nonatomic, retain) UILabel *changePass;
+@property (nonatomic, retain) UILabel *removeFood;
 
 @end
 
 @implementation SettingsViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, editInfo, changePass;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, editInfo, changePass, removeFood;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,7 +88,7 @@
         CGFloat width = 2 * self.view.frame.size.width / 3;
         CGFloat xStart = self.view.frame.size.width / 6;
         CGFloat height = self.view.frame.size.height / 10;
-        yStart = self.view.frame.size.height / 2 - offset / 2 - height;
+        yStart = self.view.frame.size.height / 2 - offset - 3 * height / 2;
         
         editInfo = [[UILabel alloc] init];
         [editInfo setFrame:CGRectMake(xStart, yStart, width, height)];
@@ -111,6 +113,19 @@
         [changePass setUserInteractionEnabled:YES];
         [changePass addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToChangePass)]];
         [self.view addSubview:changePass];
+        
+        yStart += height + offset;
+        
+        removeFood = [[UILabel alloc] init];
+        [removeFood setFrame:CGRectMake(xStart, yStart, width, height)];
+        [removeFood setBackgroundColor:[UIColor colorWithRed:132.0/255.0 green:106.0/255.0 blue:173.0/255.0 alpha:1]];
+        [removeFood setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [removeFood setText:@"REMOVE MY MEALS"];
+        [removeFood setTextColor:[UIColor whiteColor]];
+        [removeFood setTextAlignment:NSTextAlignmentCenter];
+        [removeFood setUserInteractionEnabled:YES];
+        [removeFood addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToRemoveMeals)]];
+        [self.view addSubview:removeFood];
         
     }
 }
@@ -157,6 +172,12 @@
 - (void) goToChangePass
 {
     ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) goToRemoveMeals
+{
+    RemoveFoodItemViewController *vc = [[RemoveFoodItemViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
