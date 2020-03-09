@@ -13,6 +13,7 @@
 #import "EditProfileAttriutesViewController.h"
 #import "ChangePasswordViewController.h"
 #import "RemoveFoodItemViewController.h"
+#import "EditFoodItemViewController.h"
 @import SVProgressHUD;
 
 @interface SettingsViewController ()
@@ -28,12 +29,14 @@
 @property (nonatomic, retain) UILabel *editInfo;
 @property (nonatomic, retain) UILabel *changePass;
 @property (nonatomic, retain) UILabel *removeFood;
+@property (nonatomic, retain) UILabel *editFood; //temp
+
 
 @end
 
 @implementation SettingsViewController
 
-@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, editInfo, changePass, removeFood;
+@synthesize graph, graphImage, meal, mealView, profile, profileView, settings, settingsView, editInfo, changePass, removeFood, editFood;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,7 +91,8 @@
         CGFloat width = 2 * self.view.frame.size.width / 3;
         CGFloat xStart = self.view.frame.size.width / 6;
         CGFloat height = self.view.frame.size.height / 10;
-        yStart = self.view.frame.size.height / 2 - offset - 3 * height / 2;
+        //yStart = self.view.frame.size.height / 2 - offset - 3 * height / 2;       THIS IS GOOD ONE FOR 3 BUTTONS
+        yStart = 3 * self.view.frame.size.height / 20;                            //THIS IS FOR TEMP EDIT FOOD BUTTON
         
         editInfo = [[UILabel alloc] init];
         [editInfo setFrame:CGRectMake(xStart, yStart, width, height)];
@@ -126,6 +130,22 @@
         [removeFood setUserInteractionEnabled:YES];
         [removeFood addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToRemoveMeals)]];
         [self.view addSubview:removeFood];
+        
+        // TEMPORARY BUTTON FOR EDITING FOOD ITEM
+        yStart += height + offset;
+        
+        editFood = [[UILabel alloc] init];
+        [editFood setFrame:CGRectMake(xStart, yStart, width, height)];
+        [editFood setBackgroundColor:[UIColor colorWithRed:132.0/255.0 green:106.0/255.0 blue:173.0/255.0 alpha:1]];
+        [editFood setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:20]];
+        [editFood setText:@"FOOD ITEM TEMP BUTTON"];
+        [editFood setTextColor:[UIColor whiteColor]];
+        [editFood setTextAlignment:NSTextAlignmentCenter];
+        [editFood setUserInteractionEnabled:YES];
+        [editFood addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToEditMeals)]];
+        [self.view addSubview:editFood];
+        
+        // END TEMPORARY BUTTON
         
     }
 }
@@ -166,6 +186,12 @@
 - (void) goToEditInfo
 {
     EditProfileAttriutesViewController *vc = [[EditProfileAttriutesViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) goToEditFood
+{
+    EditFoodItemViewController *vc = [[EditFoodItemViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
