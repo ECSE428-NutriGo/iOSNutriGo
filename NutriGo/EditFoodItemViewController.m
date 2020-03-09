@@ -6,11 +6,10 @@
 //  Copyright © 2020 oweek.communications.mcgilleus.ca. All rights reserved.
 //
 
-#import "EditProfileViewController.h"
-#import "ProfileViewController.h"
+#import "EditFoodItemViewController.h"
 @import SVProgressHUD;
 
-@interface EditProfileViewController ()
+@interface EditFoodItemViewController ()
 
 @property (nonatomic, retain) UILabel *cancel;
 @property (nonatomic, retain) UILabel *save;
@@ -27,7 +26,7 @@
 @end
 
 
-@implementation EditProfileViewController
+@implementation EditFoodItemViewController
 
 @synthesize cancel, save, goalsLabel, calories, fat, carbs, protein, caloriesNum, fatNum, carbsNum, proteinNum;
 
@@ -240,7 +239,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ([[NSThread currentThread] isMainThread]){
                 [SVProgressHUD dismiss];
-                ProfileViewController *vc = [[ProfileViewController alloc] init];
+                EditFoodItemViewController *vc = [[EditFoodItemViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];
             }
             else{
