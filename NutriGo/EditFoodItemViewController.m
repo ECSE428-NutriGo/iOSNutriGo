@@ -71,6 +71,7 @@
         NSString *fatNumStr = @"0";
         NSString *carbsNumStr = @"0";
         NSString *proteinNumStr = @"0";
+        NSString *foodNameStr = @"Some name";
         
         // Button Variables
         CGFloat bY = 3 * self.view.frame.size.height / 4;
@@ -100,7 +101,7 @@
         foodNameText = [[UITextField alloc] init];
         [foodNameText setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
         [foodNameText setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
-        [foodNameText setText:@"Some name"];
+        [foodNameText setText:foodNameStr];
         [foodNameText setTextAlignment:NSTextAlignmentRight];
         [foodNameText setTextColor:[UIColor whiteColor]];
         [self setTextFieldBorder:foodNameText];
