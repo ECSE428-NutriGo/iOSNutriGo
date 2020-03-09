@@ -18,29 +18,33 @@
 @property (nonatomic, retain) UILabel *fat;
 @property (nonatomic, retain) UILabel *carbs;
 @property (nonatomic, retain) UILabel *protein;
+@property (nonatomic, retain) UILabel *foodName;
 @property (nonatomic, retain) UITextField *caloriesNum;
 @property (nonatomic, retain) UITextField *fatNum;
 @property (nonatomic, retain) UITextField *carbsNum;
 @property (nonatomic, retain) UITextField *proteinNum;
+@property (nonatomic, retain) UITextField *foodNameText;
+
+
 
 @end
 
 
 @implementation EditFoodItemViewController
 
-@synthesize cancel, save, goalsLabel, calories, fat, carbs, protein, caloriesNum, fatNum, carbsNum, proteinNum;
+@synthesize cancel, save, goalsLabel, calories, fat, carbs, protein, caloriesNum, fatNum, carbsNum, proteinNum, foodName, foodNameText;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:156.0/255.0 blue:99.0/255.0 alpha:1]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:220.0/255.0 green:199.0/255.0 blue:255.0/255.0 alpha:1]];
     [SVProgressHUD show];
-//    [self layout];
+    //[self layout];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    [self loadValues];
-    [super viewDidAppear:animated];
+    //[self loadValues];
+    //[super viewDidAppear:animated];
     [self layout];
 }
 
@@ -79,10 +83,30 @@
         goalsLabel = [[UILabel alloc] init];
         [goalsLabel setFrame:CGRectMake(titleX, titleY, titleW, titleH)];
         [goalsLabel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:60]];
-        [goalsLabel setText:@"GOALS"];
+        [goalsLabel setText:@"EDIT FOOD ITEM"];
         [goalsLabel setTextAlignment:NSTextAlignmentCenter];
         [goalsLabel setTextColor:[UIColor whiteColor]];
         [self.view addSubview:goalsLabel];
+        
+        // Food name
+        foodName = [[UILabel alloc] init];
+        [foodName setFrame:CGRectMake(nutritionX, nutritionY, nutritionW, nutritionH)];
+        [foodName setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [foodName setText:@"NAME"];
+        [foodName setTextAlignment:NSTextAlignmentLeft];
+        [foodName setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:foodName];
+        
+        foodNameText = [[UITextField alloc] init];
+        [foodNameText setFrame:CGRectMake(numX, nutritionY, nutritionW, nutritionH)];
+        [foodNameText setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:nutritionSize]];
+        [foodNameText setText:@"Some name"];
+        [foodNameText setTextAlignment:NSTextAlignmentRight];
+        [foodNameText setTextColor:[UIColor whiteColor]];
+        [self setTextFieldBorder:foodNameText];
+        [self.view addSubview:foodNameText];
+        
+        nutritionY += spacing;
         
         // Macro labels
         calories = [[UILabel alloc] init];
@@ -165,7 +189,7 @@
         [save setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
         [save setText:@"SAVE"];
         [save setTextAlignment:NSTextAlignmentCenter];
-        [save setBackgroundColor:[UIColor colorWithRed:160.0/255.0 green:82.0/255.0 blue:45.0/255.0 alpha:1]];
+        [save setBackgroundColor:[UIColor colorWithRed:132.0/255.0 green:106.0/255.0 blue:173.0/255.0 alpha:1]];
         [save setTextColor:[UIColor whiteColor]];
         [save setUserInteractionEnabled:YES];
         [save addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveChanges)]];
@@ -176,7 +200,7 @@
         [cancel setFont:[UIFont fontWithName:@"SourceCodePro-Black" size:24]];
         [cancel setText:@"CANCEL"];
         [cancel setTextAlignment:NSTextAlignmentCenter];
-        [cancel setBackgroundColor:[UIColor colorWithRed:160.0/255.0 green:82.0/255.0 blue:45.0/255.0 alpha:1]];
+        [cancel setBackgroundColor:[UIColor colorWithRed:132.0/255.0 green:106.0/255.0 blue:173.0/255.0 alpha:1]];
         [cancel setTextColor:[UIColor whiteColor]];
         [cancel setUserInteractionEnabled:YES];
         [cancel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popVC)]];

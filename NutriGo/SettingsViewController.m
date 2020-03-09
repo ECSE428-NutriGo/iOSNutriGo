@@ -142,7 +142,7 @@
         [editFood setTextColor:[UIColor whiteColor]];
         [editFood setTextAlignment:NSTextAlignmentCenter];
         [editFood setUserInteractionEnabled:YES];
-        [editFood addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToEditMeals)]];
+        [editFood addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToEditFood)]];
         [self.view addSubview:editFood];
         
         // END TEMPORARY BUTTON
